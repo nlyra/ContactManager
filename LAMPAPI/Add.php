@@ -2,28 +2,30 @@
 
     $inData = getRequestInfo();
 
+    $userID = $inData["userID"];
     $firstName = $inData["firstName"];
     $lastName = $inData["lastName"];
     $email = $inData["email"];
-    $password = $inData["password"];
+    $phoneNumber = $inData["phoneNumber"];
 
     $conn = new mysqli("localhost", "nathaniellyra", "hello123", "contactmanager_database");
 
-    if ( $conn->connect_error )
+    if ($conn->connect_error)
     {
-        returnWithError( $conn->connect_error );
+        returnWithError( $conn->connect_error);
     }
     else
     {
-        $sql = "INSERT into user (FirstName, LastName, Password, Email) VALUES (' $firstName ', ' $lastName ', ' $password ', ' $email ')";
+        $sql = "INSERT into Contact (userID, FirstName, LastName, Email, PhoneNumber) VALUES (' $userID ', ' $firstName ', ' $lastName ', ' $email ', ' $phoneNumber ')";
 
         if ( $result = $conn->query($sql) != TRUE )
         {
-            returnWithError( $conn->error );
+            returnWithError($conn->error);
         }
 
-        $conn->close();
+        $conn.close();
     }
+
 
     function getRequestInfo()
     {
@@ -32,7 +34,7 @@
 
     function returnWithError( $err )
     {
-        $retValue = '{"error:"' . $err . '"}';
+        $retValue = '{"Error:"' . $err . '"}';
         sendResultInfoAsJson( $retValue );
     }
 
@@ -41,4 +43,5 @@
         header('Content-Type: application/json');
         echo $obj;
     }
+
 ?>
