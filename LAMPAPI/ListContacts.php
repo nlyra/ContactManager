@@ -27,6 +27,11 @@
 
       returnNormal($jsonArr);
     }
+    else
+    {
+      $err = "No Contacts Found";
+      returnError($err);
+    }
   }
 
   function getRequest()
