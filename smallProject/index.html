@@ -1,0 +1,57 @@
+<html>
+	<head>
+	<title>Contact Manager</title>
+		<!-- custom js files -->
+		<script type="text/javascript" src="./js/md5.js"></script>
+		<script type="text/javascript" src="./js/code.js"></script>
+
+		<!-- Bootstrap js and css file-->
+		<script  scr = "./js/bootstrap.min.js"></script>
+		<link rel = "stylesheet" href = "./css/bootstrap.min.css">
+
+		<!-- font awesome icons -->
+		<link rel = "stylesheet" href = "./css/all.min.css">
+
+		<!-- custom css file -->
+		<link href="./css/style.css" rel="stylesheet">	
+
+		<!-- Jquery js file -->
+		<script scr = "./js/jquery.js"></script>
+		
+    	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	</head>
+
+	<body>
+
+		<main class = "site-main">
+
+	<!-- LogIn Section -->
+
+			<section class = "site-banner">
+
+				<div class="container">
+
+					<form>
+
+						<h1>LogIn</h1>
+
+							<div class="form-group">
+				 				<label for="loginName">Username</label>
+				  				<input type="text" class="form-control" id="loginName" aria-describedby="emailHelp">
+							</div>
+							<div class="form-group">
+				  				<label for="loginPassword">Password</label>
+				  				<input type="password" class="form-control" id="loginPassword">
+							</div>
+							<button type="submit" id = "loginButton" class="btn btn-primary" onclick = "doLogin();">Login</button>
+							<span id = "loginResult"></span>
+					</form>
+
+
+				</div>
+			</section>
+
+		</main>
+
+	</body>
+</html>
