@@ -1,0 +1,93 @@
+
+/* Import fonts */
+@import url(./font.css);
+
+/* Login Area */
+
+body
+{
+    background-image: url(../img/background.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+.site-main .site-banner .container
+{
+
+    padding: 5% 5% 5% 5%;
+}
+
+.monospace
+{
+  font-family: "Lucida Console", Courier, monospace;
+  color: white;
+  font-size: 3vw; // Resizes based on screen size
+}
+
+label
+{
+    color: white;
+}
+
+.site-main .site-banner .container form
+{
+
+    background-color: white;
+    background-image: linear-gradient(cyan, rgba(96,156,212), rgba(50,74,138), rgba(35,48,101) 60%);
+    background-size: auto;
+    background-position: absolute;
+    align-content: center;
+
+    border: 7px solid white;
+
+    padding-top: 10%;
+    padding-left: 0%;
+    padding-right: 0%;
+    padding-bottom: 10%;
+
+}
+
+.site-main .site-banner .container .title
+{
+
+    color: white;
+}
+
+.topnav
+{
+      background-color: #333;
+      overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a
+{
+      float: left;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover
+{
+    background-color: #ddd;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active
+{
+    background-color: #243065;
+    color: white;
+}
+
+.topnav a.logout
+{
+    float: right;
+    background-color: #b50000;
+    color: white;
+}
