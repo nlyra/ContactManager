@@ -180,10 +180,6 @@ function searchColor()
 function doSignup()
 {
 
-	alert("I'm are here!");
-
-	userId = 0;
-
 	var firstName = document.getElementById("firstName").value;
 	var lastName = document.getElementById("lastName").value;
 	var email = document.getElementById("email").value;
@@ -191,7 +187,8 @@ function doSignup()
 	//var hash = md5( password );
 
 
-	document.getElementById("signupResult").innerHTML = "";
+	//Test
+	alert("Name" + firstName + "lastName" + lastName);
 
 	var jsonPayload = '{"firstName" : "' + firstName + '"lastName" : "' + lastName + '", "password" : "' + password + '"email" : "' + email + '"}';
 	var url = urlBase + '/SignUp.' + extension;
@@ -199,28 +196,15 @@ function doSignup()
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
 	xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.send(jsonPayload);
 
-		var jsonObject = JSON.parse( xhr.responseText );
+	xhr.send(jsonPayload);
 
-		userId = jsonObject.id;
-		console.log(userId);
-		if( userId < 1 )
-		{
-			document.getElementById("signinResult").innerHTML = "Username is already in use";
-			alert("Username is already in use");
-			return;
-		}
+	var jsonObject = JSON.parse( xhr.responseText );
+	userId = jsonObject.id;
+	
+	//Test
+	console.log("UserId : " + userId + "\njsonPayLoad" + jsonPayload);
 
-		saveCookie();
-
-		window.location.href = "manageContacts.html";
-	}
-	catch(err)
-	{
-		document.getElementById("signupResult").innerHTML = err.message;
-	}
+	window.location.href = "manageContacts.html";
 
 }
