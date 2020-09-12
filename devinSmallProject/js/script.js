@@ -1,4 +1,4 @@
-var urlBase = 'cop4331.fun';
+var urlBase = 'http://cop4331.fun/LAMPAPI';
 var extension = 'php';
 
 var userId = 0;
@@ -11,8 +11,8 @@ function doLogin()
 	firstName = "";
 	lastName = "";
 
-	var login = document.getElementById("loginName").value;
-	var password = document.getElementById("loginPassword").value;
+	var login = document.getElementById("email").value;
+	var password = document.getElementById("password").value;
 	var hash = md5( password );
 
 	document.getElementById("loginResult").innerHTML = "";
@@ -42,7 +42,7 @@ function doLogin()
 
 		saveCookie();
 
-		window.location.href = "color.html";
+		//window.location.href = ".html"; // Re-route to main page once logged in.
 	}
 	catch(err)
 	{
