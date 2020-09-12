@@ -1,20 +1,20 @@
-var urlBase = 'http://cop4331.fun/LAMPAPI';
+var urlBase = 'cop4331.fun';
 var extension = 'php';
 
 var userId = 0;
-var firstName = "";
-var lastName = "";
+var FirstName = "";
+var LastName = "";
 
 function doLogin()
 {
 	userId = 0;
-	firstName = "";
-	lastName = "";
-
-	var login = document.getElementById("email").value;
-	var password = document.getElementById("password").value;
+	FirstName = "";
+	LastName = "";
+	
+	var login = document.getElementById("loginName").value;
+	var password = document.getElementById("loginPassword").value;
 	var hash = md5( password );
-
+	
 	document.getElementById("loginResult").innerHTML = "";
 
 	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
@@ -26,23 +26,23 @@ function doLogin()
 	try
 	{
 		xhr.send(jsonPayload);
-
+		
 		var jsonObject = JSON.parse( xhr.responseText );
-
+		
 		userId = jsonObject.id;
-
+		
 		if( userId < 1 )
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
 			return;
 		}
-
-		firstName = jsonObject.firstName;
-		lastName = jsonObject.lastName;
+		
+		FirstName = jsonObject.FirstName;
+		LastName = jsonObject.LastName;
 
 		saveCookie();
-
-		window.location.href = "manageContacts.html"; // Re-route to main page once logged in.
+	
+		window.location.href = "color.html";
 	}
 	catch(err)
 	{
@@ -55,8 +55,8 @@ function saveCookie()
 {
 	var minutes = 20;
 	var date = new Date();
-	date.setTime(date.getTime()+(minutes*60*1000));
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+	date.setTime(date.getTime()+(minutes*60*1000));	
+	document.cookie = "FirstName=" + FirstName + ",LastName=" + LastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
 function readCookie()
@@ -64,94 +64,94 @@ function readCookie()
 	userId = -1;
 	var data = document.cookie;
 	var splits = data.split(",");
-	for(var i = 0; i < splits.length; i++)
+	for(var i = 0; i < splits.length; i++) 
 	{
 		var thisOne = splits[i].trim();
 		var tokens = thisOne.split("=");
-		if( tokens[0] == "firstName" )
+		if( tokens[0] == "FirstName" )
 		{
-			firstName = tokens[1];
+			FirstName = tokens[1];
 		}
-		else if( tokens[0] == "lastName" )
+		else if( tokens[0] == "LastName" )
 		{
-			lastName = tokens[1];
+			LastName = tokens[1];
 		}
 		else if( tokens[0] == "userId" )
 		{
 			userId = parseInt( tokens[1].trim() );
 		}
 	}
-
+	
 	if( userId < 0 )
 	{
 		window.location.href = "index.html";
 	}
 	else
 	{
-		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		document.getElementById("userName").innerHTML = "Logged in as " + FirstName + " " + LastName;
 	}
 }
 
 function doLogout()
 {
 	userId = 0;
-	firstName = "";
-	lastName = "";
-	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	FirstName = "";
+	LastName = "";
+	document.cookie = "FirstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
 }
 
-function addColor()
+function addContact()
 {
-	var newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
+	var newContact = document.getElementById("contactName").value;
+	document.getElementById("contactAddResult").innerHTML = "";
 
-	var jsonPayload = '{"color" : "' + newColor + '", "userId" : ' + userId + '}';
-	var url = urlBase + '/AddColor.' + extension;
+	var jsonPayLoad = '{"FirstName" : ' + FirstName + ', "LastName" : ' + LastName + ', "Email" : ' + Email + ', "PhoneNumber" : ' + PhoneNumber + '}';
+	// update url
+	var url = urlBase + '/AddContact.' + extension; // this will come out to cop4331.fun/AddContact.php
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.onreadystatechange = function()
+		xhr.onreadystatechange = function() 
 		{
-			if (this.readyState == 4 && this.status == 200)
+			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
+		document.getElementById("contactAddResult").innerHTML = err.message;
 	}
-
 }
 
 function searchColor()
 {
 	var srch = document.getElementById("searchText").value;
 	document.getElementById("colorSearchResult").innerHTML = "";
-
+	
 	var colorList = "";
-
+	
 	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
 	var url = urlBase + '/SearchColors.' + extension;
-
+	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.onreadystatechange = function()
+		xhr.onreadystatechange = function() 
 		{
-			if (this.readyState == 4 && this.status == 200)
+			if (this.readyState == 4 && this.status == 200) 
 			{
 				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
 				var jsonObject = JSON.parse( xhr.responseText );
-
+				
 				for( var i=0; i<jsonObject.results.length; i++ )
 				{
 					colorList += jsonObject.results[i];
@@ -160,7 +160,7 @@ function searchColor()
 						colorList += "<br />\r\n";
 					}
 				}
-
+				
 				document.getElementsByTagName("p")[0].innerHTML = colorList;
 			}
 		};
@@ -170,5 +170,5 @@ function searchColor()
 	{
 		document.getElementById("colorSearchResult").innerHTML = err.message;
 	}
-
+	
 }
