@@ -42,7 +42,7 @@ function doLogin()
 
 		saveCookie();
 
-		//window.location.href = ".html"; // Re-route to main page once logged in.
+		window.location.href = "manageContacts.html"; // Re-route to main page once logged in.
 	}
 	catch(err)
 	{
