@@ -14,11 +14,13 @@ function doLogin()
 
 	var login = document.getElementById("email").value;
 	var password = document.getElementById("password").value;
-	var hash = md5( password );
+	//var hash = md5( password );
+
 
 	document.getElementById("loginResult").innerHTML = "";
 
-	var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
+	//var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
+	var jsonPayload = '{"login" : "' + login + '", "password" : "' + password + '"}';
 	var url = urlBase + '/Login.' + extension;
 
 	var xhr = new XMLHttpRequest();
