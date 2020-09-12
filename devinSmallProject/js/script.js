@@ -176,3 +176,50 @@ function searchColor()
 	}
 
 }
+
+function doSignup()
+{
+
+	userId = 0;
+
+	var firstName = document.getElementById("firstName").value;
+	var lastName = document.getElementById("lastName").value;
+	var email = document.getElementById("email").value;
+	var password = document.getElementById("password").value;
+	//var hash = md5( password );
+
+
+	document.getElementById("signupResult").innerHTML = "";
+
+	//var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
+	var jsonPayload = '{"FirstName" : "' + firstName + '"LastName" : "' + lastName + '", "Password" : "' + password + '"Email" : "' + email + '"}';
+	var url = urlBase + '/SignUp.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, false);
+	xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.send(jsonPayload);
+
+		var jsonObject = JSON.parse( xhr.responseText );
+
+		userId = jsonObject.id;
+		console.log(userId);
+		if( userId < 1 )
+		{
+			document.getElementById("signinResult").innerHTML = "Username is already in use";
+			alert("Username is already in use");
+			return;
+		}
+
+		saveCookie();
+
+		window.location.href = "manageContacts.html";
+	}
+	catch(err)
+	{
+		document.getElementById("signupResult").innerHTML = err.message;
+	}
+
+}
