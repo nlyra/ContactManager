@@ -180,6 +180,8 @@ function searchColor()
 function doSignup()
 {
 
+	alert("I'm are here!");
+
 	userId = 0;
 
 	var firstName = document.getElementById("firstName").value;
@@ -191,8 +193,7 @@ function doSignup()
 
 	document.getElementById("signupResult").innerHTML = "";
 
-	//var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
-	var jsonPayload = '{"FirstName" : "' + firstName + '"LastName" : "' + lastName + '", "Password" : "' + password + '"Email" : "' + email + '"}';
+	var jsonPayload = '{"firstName" : "' + firstName + '"lastName" : "' + lastName + '", "password" : "' + password + '"email" : "' + email + '"}';
 	var url = urlBase + '/SignUp.' + extension;
 
 	var xhr = new XMLHttpRequest();
