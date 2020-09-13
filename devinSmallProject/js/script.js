@@ -203,10 +203,13 @@ function doSignup()
 			}
 		};
 		xhr.send(jsonPayload);
+		console.log("jsonPayload sent\n jsonPayload: " + jsonPayload);
 	}
 	catch(err)
 	{
 		document.getElementById("signupResult").innerHTML = err.message;
 	}
+
+	window.location.href = "https://previews.123rf.com/images/chagin/chagin1205/chagin120500226/13541697-group-of-happy-business-people-giving-the-thumbs-up-sign.jpg";
 
 }
