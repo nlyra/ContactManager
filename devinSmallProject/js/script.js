@@ -186,25 +186,27 @@ function doSignup()
 	var password = document.getElementById("password").value;
 	//var hash = md5( password );
 
-
-	//Test
-	alert("Name" + firstName + "lastName" + lastName);
-
-	var jsonPayload = '{"firstName" : "' + firstName + '"lastName" : "' + lastName + '", "password" : "' + password + '"email" : "' + email + '"}';
+	var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "password" : "' + password + '", "email" : "' + email + '"}';
 	var url = urlBase + '/SignUp.' + extension;
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, false);
-	xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-
-	xhr.send(jsonPayload);
-
-	var jsonObject = JSON.parse( xhr.responseText );
-	userId = jsonObject.id;
 	
-	//Test
-	console.log("UserId : " + userId + "\njsonPayLoad" + jsonPayload);
-
-	window.location.href = "manageContacts.html";
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				document.getElementById("signupResult").innerHTML = "User has been added";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("signupResult").innerHTML = err.message;
+	}
 
 }
