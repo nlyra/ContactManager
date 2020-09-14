@@ -184,7 +184,8 @@ function doSignup()
 	var lastName = document.getElementById("lastName").value;
 	var email = document.getElementById("email").value;
 	var password = document.getElementById("password").value;
-	//var hash = md5( password );
+	hash = md5( password );
+	password = hash;
 
 	var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "password" : "' + password + '", "email" : "' + email + '"}';
 	var url = urlBase + '/SignUp.' + extension;
