@@ -35,13 +35,32 @@ function doLogin()
 
 		userId = jsonObject.id;
 		console.log(userId);
+
+		/*
+		if(!hashedPassword.equals(hash)){
+		
+			alert("Wrong password");
+
+		}
+		*/
+
+		/*
+		var hashedPassword = jsonObject.password; // check if it's called password or Password or passWord
+		if(hashedPassword == hash){
+
+  		alert("Wrong password");
+		}
+		*/
+
+
 		if( userId < 1 )
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-			alert("User/Password combination incorrect");
+			alert("User/Password combination incorrect\n " + "hash: " + hash);
 			return;
 		}
 
+	
 		firstName = jsonObject.firstName;
 		lastName = jsonObject.lastName;
 
@@ -191,26 +210,16 @@ function doSignup()
 	var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "password" : "' + password + '", "email" : "' + email + '"}';
 	var url = urlBase + '/SignUp.' + extension;
 
-	
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				document.getElementById("signupResult").innerHTML = "User has been added";
-			}
-		};
-		xhr.send(jsonPayload);
-		console.log("jsonPayload sent\n jsonPayload: " + jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("signupResult").innerHTML = err.message;
-	}
+
+	document.getElementById("signupResult").innerHTML = "Email already in use";
+
+
+	xhr.send(jsonPayload);
+	console.log("jsonPayload sent\n jsonPayload: " + jsonPayload);
+
 
 	window.location.href = "https://previews.123rf.com/images/chagin/chagin1205/chagin120500226/13541697-group-of-happy-business-people-giving-the-thumbs-up-sign.jpg";
 
