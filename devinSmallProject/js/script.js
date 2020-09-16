@@ -17,10 +17,8 @@ function doLogin()
 	var hash = md5( password );
 	password = hash;
 
-
 	document.getElementById("loginResult").innerHTML = "";
 
-	//var jsonPayload = '{"login" : "' + login + '", "password" : "' + hash + '"}';
 	var jsonPayload = '{"email" : "' + login + '", "password" : "' + password + '"}';
 	var url = urlBase + '/Login.' + extension;
 
@@ -36,23 +34,6 @@ function doLogin()
 		userId = jsonObject.id;
 		console.log(userId);
 
-		/*
-		if(!hashedPassword.equals(hash)){
-		
-			alert("Wrong password");
-
-		}
-		*/
-
-		/*
-		var hashedPassword = jsonObject.password; // check if it's called password or Password or passWord
-		if(hashedPassword == hash){
-
-  		alert("Wrong password");
-		}
-		*/
-
-
 		if( userId < 1 )
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
@@ -60,19 +41,17 @@ function doLogin()
 			return;
 		}
 
-	
 		firstName = jsonObject.firstName;
 		lastName = jsonObject.lastName;
 
 		saveCookie();
 
-		window.location.href = "manageContacts.html"; // Re-route to main page once logged in.
+		manageContacts(firstName, lastName);
 	}
 	catch(err)
 	{
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
-
 }
 
 function saveCookie()
@@ -197,6 +176,24 @@ function searchColor()
 
 }
 
+function manageContacts(firstName, lastName){
+
+	window.location.href = "manageContacts.html"; // Re-route to main page once logged in.
+
+	document.getElementById("demo").innerHTML = "Color(s) has been retrieved " + firstName;
+
+}
+
+function createContact(){
+
+	var firstName = document.getElementById("firstName").value;
+	var lastName = document.getElementById("lastName").value;
+	var email = document.getElementById("email").value;
+	var phoneNumber = document.getElementById("phoneNumber").value;
+
+	window.location.href = "manageContact.html";
+}
+
 function doSignup()
 {
 
@@ -213,8 +210,6 @@ function doSignup()
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-	document.getElementById("signupResult").innerHTML = "Email already in use";
 
 
 	xhr.send(jsonPayload);
