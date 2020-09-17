@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<script type="text/javascript" src="./js/md5.js"></script>
-		<script type="text/javascript" src="./js/code.js"></script>
+		<script type="text/javascript" src="./js/script.js"></script>
 		<script scr = "./js/bootstrap.min.js"></script>
 		<link rel = "stylesheet" href = "./css/bootstrap.min.css">
 		<link rel = "stylesheet" href = "./css/all.min.css">
@@ -26,9 +26,9 @@
                 </div>
 
 				<div class="container">
-					<form action="https://previews.123rf.com/images/chagin/chagin1205/chagin120500226/13541697-group-of-happy-business-people-giving-the-thumbs-up-sign.jpg" target="_self" method="post">
+					<form >
 						<center>
-						<h1 class="monospace">Create a New User</h1>
+						<h1 class="monospace">Create Contact</h1>
 						<br><br>
 							<div class="col-lg-5">
 								<div class="form-group">
@@ -42,20 +42,19 @@
 								</div>
 
 								<div class="form-group">
+					  				<label for="phone">Phone number</label>
+					  				<input type="text" class="form-control" id="phoneNumber">
+								</div>
+
+								<div class="form-group">
 					  				<label for="email">Email</label>
 					  				<input type="text" class="form-control" id="email">
 								</div>
 
-								<div class="form-group">
-					  				<label for="password">Password</label>
-					  				<input type="password" class="form-control" id="password">
-								</div>
-
 								<br><br>
 
-								<button type="submit" id="loginButton" class="btn btn-primary" onclick = "doLogin();">Submit</button>
+								<button type="submit" id="submitButton" class="btn btn-primary" onclick = "createContact();">Submit</button>
 
-								<span id = "loginResult"></span>
 							</div>
 						</center>
 					</form>
