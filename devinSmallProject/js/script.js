@@ -7,7 +7,6 @@ var lastName = "";
 
 function doLogin()
 {
-
 	userId = 0;
 	firstName = "";
 	lastName = "";
@@ -46,7 +45,6 @@ function doLogin()
 
 		saveCookie();
 
-		manageContacts(firstName, lastName);
 	}
 	catch(err)
 	{
@@ -130,7 +128,6 @@ function addColor()
 	{
 		document.getElementById("colorAddResult").innerHTML = err.message;
 	}
-
 }
 
 function searchColor()
@@ -173,17 +170,9 @@ function searchColor()
 	{
 		document.getElementById("colorSearchResult").innerHTML = err.message;
 	}
-
 }
 
-function manageContacts(firstName, lastName){
-
-	window.location.href = "manageContacts.html"; // Re-route to main page once logged in.
-
-	document.getElementById("demo").innerHTML = "Color(s) has been retrieved " + firstName;
-
-}
-
+/*
 function createContact(){
 
 	var firstName = document.getElementById("firstName").value;
@@ -193,6 +182,7 @@ function createContact(){
 
 	window.location.href = "manageContact.html";
 }
+*/
 
 function doSignup()
 {
@@ -201,21 +191,20 @@ function doSignup()
 	var lastName = document.getElementById("lastName").value;
 	var email = document.getElementById("email").value;
 	var password = document.getElementById("password").value;
+	var question1 = document.getElementById("question1").value;
+	var question2 = document.getElementById("question2").value;
 	hash = md5( password );
 	password = hash;
 
-	var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "password" : "' + password + '", "email" : "' + email + '"}';
+	var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "password" : "' + password + '", "email" : "' + email + '", "question1" : "' + question1 + '", "question2" : "' + question2 + '"}';
 	var url = urlBase + '/SignUp.' + extension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-
 	xhr.send(jsonPayload);
 	console.log("jsonPayload sent\n jsonPayload: " + jsonPayload);
 
-
 	window.location.href = "https://previews.123rf.com/images/chagin/chagin1205/chagin120500226/13541697-group-of-happy-business-people-giving-the-thumbs-up-sign.jpg";
-
 }
