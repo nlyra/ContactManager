@@ -26,6 +26,14 @@ body
   font-size: 3vw; // Resizes based on screen size
 }
 
+p{
+  
+  color: white;
+  font-size: 1.3vw;
+  margin-top: 12%;
+  margin-bottom: 5%;
+}
+
 label
 {
     color: white;
