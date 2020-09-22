@@ -8,7 +8,8 @@
 		<link rel = "stylesheet" href = "./css/bootstrap.min.css">
 		<link rel = "stylesheet" href = "./css/all.min.css">
 		<link href="./css/style.css" rel="stylesheet">
-		<script scr = "./js/jquery.js"></script>
+        <script scr = "./js/jquery.js"></script>
+        <script> readCookie() </script>
 
 		<title>Manage Contacts</title>
 
@@ -28,7 +29,7 @@
 				<div class="container">
 					<form>
 						<center>
-							<h1 class="monospace">Welcome, {NAME_HERE}</h1>
+							<h1 id="welcomeheader" class="monospace"></h1>
 
 							<button type="submit" id="loginButton" class="btn btn-primary" onclick = "doLogin();">Search</button>
 							<button type="button" class="btn btn-primary" onclick = "">Create New</button>
