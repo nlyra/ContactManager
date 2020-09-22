@@ -26,7 +26,7 @@
                 </div>
 
 				<div class="container">
-					<form target="/manageContacts.html" method="post">
+					<form method="post">
 						<center>
 						<h1 class="monospace">Log-In to COP4331.fun!</h1>
 						<br><br>
@@ -43,7 +43,7 @@
 
 								<br><br>
 
-								<button type="submit" id="loginButton" class="btn btn-primary" onclick = "doLogin();">Login</button>
+								<button type="submit" id="loginButton" class="btn btn-primary" onclick = "return doLogin();">Login</button>
 								<button type="submit" class="btn btn-primary" formaction="newUser.html">New User?</button>
 
 								<span id = "loginResult"></span>

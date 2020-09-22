@@ -43,13 +43,16 @@ function doLogin()
 		firstName = jsonObject.firstName;
 		lastName = jsonObject.lastName;
 
+        window.location.href = "http://cop4331.fun/manageContacts.html";
 		saveCookie();
 
 	}
 	catch(err)
 	{
 		document.getElementById("loginResult").innerHTML = err.message;
-	}
+    }
+    
+    return false;
 }
 
 function saveCookie()
@@ -85,7 +88,7 @@ function readCookie()
 
 	if( userId < 0 )
 	{
-		window.location.href = "index.html";
+		window.location.href = "http://cop4331.fun/index.html";
 	}
 	else
 	{
@@ -99,7 +102,7 @@ function doLogout()
 	firstName = "";
 	lastName = "";
 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-	window.location.href = "logout.html";
+	window.location.href = "http://cop4331.fun/logout.html";
 }
 
 function addColor()
