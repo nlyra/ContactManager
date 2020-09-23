@@ -86,6 +86,7 @@ function readCookie()
 		}
 	}
 
+	/*
 	if( userId < 0 )
 	{
 		window.location.href = "http://cop4331.fun/index.html";
@@ -94,6 +95,7 @@ function readCookie()
 	{
 		document.getElementById("welcomeheader").innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 	}
+	*/
 }
 
 function doLogout()
@@ -105,87 +107,87 @@ function doLogout()
 	window.location.href = "http://cop4331.fun/logout.html";
 }
 
-function addColor()
+function createContact()
 {
-	var newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
-
-	var jsonPayload = '{"color" : "' + newColor + '", "userId" : ' + userId + '}';
-	var url = urlBase + '/AddColor.' + extension;
-
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
-	}
-}
-
-function searchColor()
-{
-	var srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
-
-	var colorList = "";
-
-	var jsonPayload = '{"search" : "' + srch + '","userId" : ' + userId + '}';
-	var url = urlBase + '/SearchColors.' + extension;
-
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-				var jsonObject = JSON.parse( xhr.responseText );
-
-				for( var i=0; i<jsonObject.results.length; i++ )
-				{
-					colorList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						colorList += "<br />\r\n";
-					}
-				}
-
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
-	}
-}
-
-/*
-function createContact(){
+	readCookie();
 
 	var firstName = document.getElementById("firstName").value;
 	var lastName = document.getElementById("lastName").value;
 	var email = document.getElementById("email").value;
 	var phoneNumber = document.getElementById("phoneNumber").value;
+	
 
-	window.location.href = "manageContact.html";
+	document.getElementById("userAddResult").innerHTML = "";
+
+	// var jsonPayload = '{"email" : "' + login + '", "password" : "' + password + '"}';
+	var jsonPayload = '{"userID" : "' + userId + '", "firstName" : "' +  firstName + '", "lastName" : "' + lastName + '", "email" : "' + email + '", "phoneNumber" : "' + phoneNumber + '"}';
+	var url = urlBase + '/Add.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				document.getElementById("userAddResult").innerHTML = "User has been added";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("userAddResult").innerHTML = err.message;
+	}
 }
-*/
+
+function searchContact()
+{
+	var i = 0;
+	var srch = document.getElementById("searchText").value;
+	document.getElementById("contactSearchResult").innerHTML = "";
+
+	var contactList = "";
+
+	readCookie();
+
+	var jsonPayload = '{"search" : "' + srch + '", "userID" : "' + userId + '"}';
+	var url = urlBase + '/SearchContact.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				document.getElementById("contactSearchResult").innerHTML = "Contact has been retrieved";
+				var jsonObject = JSON.parse( xhr.responseText );
+
+				for( i; i<jsonObject.Object.length; i++ )
+				{
+					contactList += jsonObject[i];
+					if( i < jsonObject.Object.length - 1 )
+					{
+						contactList += "<br />\r\n";
+					}
+				}
+				document.getElementsByTagName("p")[0].innerHTML = contactList;
+			}
+		};
+		xhr.send(jsonPayload);
+		var jsonObject = JSON.parse( xhr.responseText );
+		console.log(jsonObject);
+	}
+	catch(err)
+	{
+		document.getElementById("contactSearchResult").innerHTML = err.message;
+	}
+}
 
 function doSignup()
 {
