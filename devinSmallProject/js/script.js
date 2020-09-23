@@ -165,23 +165,32 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				document.getElementById("contactSearchResult").innerHTML = "Contact has been retrieved";
 				var jsonObject = JSON.parse( xhr.responseText );
 
-				for( i; i<jsonObject.Object.length; i++ )
-				{
-					contactList += jsonObject[i];
-					if( i < jsonObject.Object.length - 1 )
-					{
-						contactList += "<br />\r\n";
-					}
-				}
-				document.getElementsByTagName("p")[0].innerHTML = contactList;
+				jsonObject.forEach(obj => {
+					var length = Object.entries(obj).length;
+
+					Object.entries(obj).forEach(([key, value]) => {
+
+						i++;
+
+						if(i == length ){
+							contactList += ` ${key}: ${value} `;
+						}
+						else{
+							contactList += ` ${key}: ${value}, `;
+						}
+
+					});
+					contactList += "<br />\r\n";
+					i = 0;
+				});
+
+				document.getElementsByTagName("p")[0].innerHTML = contactList; 
 			}
 		};
 		xhr.send(jsonPayload);
-		var jsonObject = JSON.parse( xhr.responseText );
-		console.log(jsonObject);
+
 	}
 	catch(err)
 	{
