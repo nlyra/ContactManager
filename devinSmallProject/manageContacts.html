@@ -9,7 +9,8 @@
 		<link rel = "stylesheet" href = "./css/all.min.css">
 		<link href="./css/style.css" rel="stylesheet">
         <script scr = "./js/jquery.js"></script>
-        <script> readCookie() </script>
+		<script> readCookie(); </script>
+		<script> listContacts(); </script>
 
 		<title>Manage Contacts</title>
 
@@ -33,19 +34,27 @@
 
 							<button type="submit" id="loginButton" class="btn btn-primary" onclick = "doLogin();">Search</button>
 							<button type="button" class="btn btn-primary" onclick="location.href = 'newContact.html';">Create New</button>
+
 						</center>
 
 						<div class="input-group">
 							<input type="text" id="searchText" placeholder="Recipient's username" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
 							<div class="input-group-append" id="button-addon4">
 							  <button class="btn btn-outline-secondary" type="button" onclick = "searchContact();">Search</button>
-							  <button class="btn btn-outline-secondary" type="button">Button</button>
 							</div>
 						</div>
 
-						<span id="contactSearchResult"></span>
-						<p id="contactList">
-						</p><br /><br />
+						<center>
+						<span id="contactResult"></span>
+						<p id="contacts"></p>
+						</center>
+
+						
+						<div>
+							<span id="contactSearchResult"></span>
+							<p id="contactList">
+							</p><br /><br />
+						</div>
 
 					</form>
 

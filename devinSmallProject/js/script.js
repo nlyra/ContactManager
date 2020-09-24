@@ -198,6 +198,59 @@ function searchContact()
 	}
 }
 
+function listContacts(){
+
+	var contacts = "";
+	var i = 0;
+
+	readCookie();
+
+	var jsonPayload = '{"userID" : "' + userId + '"}';
+	var url = urlBase + '/ListContacts.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				var jsonObject = JSON.parse( xhr.responseText );
+
+				jsonObject.forEach(item => {
+					var length = Object.entries(item).length;
+
+					Object.entries(item).forEach(([key, value]) => {
+
+						i++;
+
+						if(i == length ){
+							contacts += ` ${key}: ${value} `;
+						}
+						else{
+							contacts += ` ${key}: ${value}, `;
+						}
+
+					});
+					contacts += "<br />\r\n";
+					i = 0;
+				});
+
+				document.getElementsByTagName("p")[0].innerHTML = contacts; 
+			}
+		};
+
+		xhr.send(jsonPayload);
+
+	}
+	catch(err)
+	{
+		document.getElementById("contactResult").innerHTML = err.message;
+	}
+}
+
 function doSignup()
 {
 

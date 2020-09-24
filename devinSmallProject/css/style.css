@@ -43,6 +43,15 @@ body
   margin-top: 2%;
 }
 
+#contactResult{
+  color: white;
+}
+
+#contacts{
+  color: white;
+  margin-top: 2%;
+}
+
 label
 {
     color: white;
