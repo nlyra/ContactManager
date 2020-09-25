@@ -22,6 +22,7 @@
             returnWithError( $conn->error );
         }
 
+        returnNormal();
         $conn->close();
     }
 
@@ -32,13 +33,19 @@
 
     function returnWithError( $err )
     {
-        $retValue = '{"error:"' . $err . '"}';
+        $retValue = '{"error : "' . $err . '"}';
+        sendResultInfoAsJson( $retValue );
+    }
+
+    function returnNormal()
+    {
+        $retValue = '{"error" : "none"}';
         sendResultInfoAsJson( $retValue );
     }
 
     function sendResultInfoAsJson( $obj )
     {
-        header('Content-Type: application/json');
+        header('Content-Type : application/json');
         echo $obj;
     }
 ?>
