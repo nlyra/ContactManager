@@ -22,7 +22,6 @@
             returnWithError( $conn->error );
         }
 
-        returnNormal();
         $conn->close();
     }
 
