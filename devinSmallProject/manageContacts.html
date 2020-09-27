@@ -9,8 +9,9 @@
 		<link rel = "stylesheet" href = "./css/all.min.css">
 		<link href="./css/style.css" rel="stylesheet">
         <script scr = "./js/jquery.js"></script>
-		<script> readCookie(); </script>
 		<script> listContacts(); </script>
+		<script> readCookie(); </script>
+		
 
 		<title>Manage Contacts</title>
 
@@ -32,7 +33,7 @@
 						<center>
 							<h1 id="welcomeheader" class="monospace"></h1>
 
-							<button type="submit" id="loginButton" class="btn btn-primary" onclick = "doLogin();">Search</button>
+							<button type="submit" id="loginButton" class="btn btn-primary" onclick = "deleteContact();">Delete Test</button>
 							<button type="button" class="btn btn-primary" onclick="location.href = 'newContact.html';">Create New</button>
 
 						</center>
@@ -45,16 +46,13 @@
 						</div>
 
 						<center>
-						<span id="contactResult"></span>
-						<p id="contacts"></p>
-						</center>
+							<span id="contactResult"></span>
+							<p id="contacts"></p>
 
-						
-						<div>
 							<span id="contactSearchResult"></span>
-							<p id="contactList">
-							</p><br /><br />
-						</div>
+							<p id="contactList"></p>
+							<br /><br />
+						</center>
 
 					</form>
 

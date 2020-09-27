@@ -63,6 +63,14 @@ function saveCookie()
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 
+function saveListCookie(contacts)
+{
+	var minutes = 20;
+	var date = new Date();
+	date.setTime(date.getTime()+(minutes*60*1000));
+	document.cookie = "contacts=" + contacts + ";expires=" + date.toGMTString();
+}
+
 function readCookie()
 {
 	userId = -1;
@@ -84,6 +92,7 @@ function readCookie()
 		{
 			userId = parseInt( tokens[1].trim() );
 		}
+
 	}
 
 	/*
@@ -109,6 +118,7 @@ function doLogout()
 
 function createContact()
 {
+
 	readCookie();
 
 	var firstName = document.getElementById("firstName").value;
@@ -116,10 +126,8 @@ function createContact()
 	var email = document.getElementById("email").value;
 	var phoneNumber = document.getElementById("phoneNumber").value;
 	
-
 	document.getElementById("userAddResult").innerHTML = "";
 
-	// var jsonPayload = '{"email" : "' + login + '", "password" : "' + password + '"}';
 	var jsonPayload = '{"userID" : "' + userId + '", "firstName" : "' +  firstName + '", "lastName" : "' + lastName + '", "email" : "' + email + '", "phoneNumber" : "' + phoneNumber + '"}';
 	var url = urlBase + '/Add.' + extension;
 
@@ -135,6 +143,7 @@ function createContact()
 				document.getElementById("userAddResult").innerHTML = "User has been added";
 			}
 		};
+
 		xhr.send(jsonPayload);
 	}
 	catch(err)
@@ -168,29 +177,28 @@ function searchContact()
 				var jsonObject = JSON.parse( xhr.responseText );
 
 				jsonObject.forEach(obj => {
+
 					var length = Object.entries(obj).length;
 
-					Object.entries(obj).forEach(([key, value]) => {
-
+					Object.entries(obj).forEach(([key, value]) => 
+					{
 						i++;
-
-						if(i == length ){
+						if(i == length )
+						{
 							contactList += ` ${key}: ${value} `;
 						}
-						else{
+						else
+						{
 							contactList += ` ${key}: ${value}, `;
 						}
-
 					});
 					contactList += "<br />\r\n";
 					i = 0;
 				});
-
 				document.getElementsByTagName("p")[0].innerHTML = contactList; 
 			}
 		};
 		xhr.send(jsonPayload);
-
 	}
 	catch(err)
 	{
@@ -198,10 +206,11 @@ function searchContact()
 	}
 }
 
-function listContacts(){
-
-	var contacts = "";
+function listContacts()
+{
+	var contacts = [];
 	var i = 0;
+	var j = 0;
 
 	readCookie();
 
@@ -220,25 +229,32 @@ function listContacts(){
 				var jsonObject = JSON.parse( xhr.responseText );
 
 				jsonObject.forEach(item => {
-					var length = Object.entries(item).length;
+					length = Object.entries(item).length;
 
-					Object.entries(item).forEach(([key, value]) => {
+					Object.entries(item).forEach(([key, value]) => 
+					{
+						j++;
 
-						i++;
-
-						if(i == length ){
-							contacts += ` ${key}: ${value} `;
+						if(j == 1 )
+						{
+							contacts[i] = `${key}: ${value} `;
 						}
-						else{
-							contacts += ` ${key}: ${value}, `;
+						else if(j == length) 
+						{
+							contacts[i] += ` ${key}: ${value} `;
 						}
-
+						else
+						{
+							contacts[i] += ` ${key}: ${value} `;
+						}
 					});
-					contacts += "<br />\r\n";
-					i = 0;
+					contacts[i] += "<br />\r\n";
+					i++;
+					j = 0;
 				});
 
-				document.getElementsByTagName("p")[0].innerHTML = contacts; 
+				saveListCookie(contacts);
+				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");; 
 			}
 		};
 
@@ -251,9 +267,42 @@ function listContacts(){
 	}
 }
 
+function deleteContact()
+{
+	var firstName = "Javier";
+	var lastName = "Gonzalez";
+	var email = "test23@gmail.com";
+	var phoneNumber = "123445"
+
+	readCookie();
+
+	var jsonPayload = '{"userID" : "' + userId + '", "firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "email" : "' + email + '", "phoneNumber" : "' + phoneNumber + '"}';
+	var url = urlBase + '/DeleteContact.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				listContacts();
+				document.getElementById("userDeleteResult").innerHTML = "User has been deleted";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("userDeleteResult").innerHTML = err.message;
+	}
+
+}
+
 function doSignup()
 {
-
 	var firstName = document.getElementById("firstName").value;
 	var lastName = document.getElementById("lastName").value;
 	var email = document.getElementById("email").value;
