@@ -154,11 +154,12 @@ function createContact()
 
 function searchContact()
 {
+	var contactList = [];
+	var j = 0;
 	var i = 0;
 	var srch = document.getElementById("searchText").value;
-	document.getElementById("contactSearchResult").innerHTML = "";
 
-	var contactList = "";
+	document.getElementById("contactSearchResult").innerHTML = "";
 
 	readCookie();
 
@@ -176,26 +177,31 @@ function searchContact()
 			{
 				var jsonObject = JSON.parse( xhr.responseText );
 
-				jsonObject.forEach(obj => {
+				jsonObject.forEach(item => {
+					length = Object.entries(item).length;
 
-					var length = Object.entries(obj).length;
-
-					Object.entries(obj).forEach(([key, value]) => 
+					Object.entries(item).forEach(([key, value]) => 
 					{
-						i++;
-						if(i == length )
+						j++;
+
+						if(j == 1 )
 						{
-							contactList += ` ${key}: ${value} `;
+							contacts[i] = `${key}: ${value} `;
+						}
+						else if(j == length) 
+						{
+							contacts[i] += ` ${key}: ${value} `;
 						}
 						else
 						{
-							contactList += ` ${key}: ${value}, `;
+							contacts[i] += ` ${key}: ${value} `;
 						}
 					});
-					contactList += "<br />\r\n";
-					i = 0;
+					contacts[i] += "<br />\r\n";
+					i++;
+					j = 0;
 				});
-				document.getElementsByTagName("p")[0].innerHTML = contactList; 
+				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");; 
 			}
 		};
 		xhr.send(jsonPayload);
@@ -315,12 +321,28 @@ function doSignup()
 	var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "password" : "' + password + '", "email" : "' + email + '", "question1" : "' + question1 + '", "question2" : "' + question2 + '"}';
 	var url = urlBase + '/SignUp.' + extension;
 
+	document.getElementById("signUpResult").innerHTML = "";
+
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if(this.readyState == 4 && this.status == 200)
+			{
+				document.getElementById("signUpResult").innerHTML = "You have signed up successfully";
+				window.location.href = "http://cop4331.fun/index.html";
+				return;
+			}
+		};
+		xhr.send(jsonPayload);
 
-	xhr.send(jsonPayload);
-	console.log("jsonPayload sent\n jsonPayload: " + jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("signUpResult").innerHTML = err.message;
+    }
 
-	window.location.href = "https://previews.123rf.com/images/chagin/chagin1205/chagin120500226/13541697-group-of-happy-business-people-giving-the-thumbs-up-sign.jpg";
 }
