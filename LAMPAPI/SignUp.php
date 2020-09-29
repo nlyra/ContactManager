@@ -6,6 +6,8 @@
     $lastName = $inData["lastName"];
     $email = $inData["email"];
     $password = $inData["password"];
+    $question1 = $inData["question1"];
+    $question2 = $inData["question2"];
 
     $conn = new mysqli("localhost", "nathaniellyra", "hello123", "contactmanager_database");
 
@@ -15,15 +17,21 @@
     }
     else
     {
-        $sql = "INSERT into user (FirstName, LastName, Password, Email) VALUES ('$firstName', '$lastName', '$password', '$email')";
+        $sql = "INSERT into user (FirstName, LastName, Password, Email, securityQAnswer1, securityQAnswer2) VALUES ('$firstName', '$lastName', '$password', '$email', '$question1', '$question2')";
 
         if ( $result = $conn->query($sql) != TRUE )
         {
             returnWithError( $conn->error );
         }
 
+        $sql = "SELECT userID FROM user WHERE Email = '$email'";
+        $result = $conn->query($sql);
+
+        $row = $result->fetch_assoc();
+        $id = $row["userID"];
+
         $conn->close();
-        returnNormal();
+        returnNormal( $id );
     }
 
     function getRequestInfo()
@@ -33,13 +41,13 @@
 
     function returnWithError( $err )
     {
-        $retValue = '{"error" : "' . $err . '"}';
+        $retValue = '{"userID" : 0, "error" : "' . $err . '"}';
         sendResultInfoAsJson( $retValue );
     }
 
-    function returnNormal()
+    function returnNormal( $id )
     {
-        $retValue = '{"error":"none"}';
+        $retValue = '{"userID" : ' . $id . ', "error" : "none"}';
         sendResultInfoAsJson( $retValue );
     }
 

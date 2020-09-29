@@ -9,9 +9,7 @@
   }
   else
   {
-    $sql = "DELETE FROM Contact WHERE userID = " . $inData["userID"] . " and FirstName = '"
-            . $inData["firstName"] . "' and LastName = '" . $inData["lastName"] . "' and Email = '"
-            . $inData["email"] . "' and PhoneNumber = '" . $inData["phoneNumber"] . "'";
+    $sql = "DELETE FROM Contact WHERE id = " . $inData["contactID"];
 
     mysqli_query($conn, $sql);
     if (mysqli_affected_rows($conn) > 0)
