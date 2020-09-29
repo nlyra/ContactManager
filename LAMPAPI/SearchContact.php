@@ -18,11 +18,11 @@
 		{
 			while($row = $result->fetch_assoc())
 			{
-				$arr = array("firstName" => $row["FirstName"],
+				$arr = array("contactID" => $row["id"],
+										 "firstName" => $row["FirstName"],
                      "lastName" => $row["LastName"],
                      "email" => $row["Email"],
-                     "phoneNumber" => $row["PhoneNumber"],
-                     "dateCreated" => $row["DateRecordCreated"]);
+                     "phoneNumber" => $row["PhoneNumber"]);
 
 				array_push($jsonArr, $arr);
 			}
