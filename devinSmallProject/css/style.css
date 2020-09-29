@@ -6,7 +6,7 @@
 
 header {
     position: relative;
-    background-color: black;
+    background-color: grey;
     height: 100vh;
     min-height: 25rem;
     width: 100%;
@@ -51,6 +51,11 @@ header video {
   font-weight: 390;
   color: black;
   font-size: 4vw;
+}
+
+.inputText
+{
+    max-width: 65%;
 }
 
 #squestion{
@@ -104,7 +109,7 @@ label
 
 .container
 {
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.5);
     background-size: auto;
     align-content: center;
 
@@ -142,7 +147,7 @@ label
 
 .topnav
 {
-    background-color: rgb(7, 7, 7);
+    background-color: rgb(255, 255, 255);
     overflow: hidden;
     width: 100%;
 }
@@ -151,7 +156,7 @@ label
 .topnav a
 {
     float: left;
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
