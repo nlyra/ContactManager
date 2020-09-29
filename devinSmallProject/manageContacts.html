@@ -8,7 +8,10 @@
 		<link rel = "stylesheet" href = "./css/bootstrap.min.css">
 		<link rel = "stylesheet" href = "./css/all.min.css">
 		<link href="./css/style.css" rel="stylesheet">
-		<script scr = "./js/jquery.js"></script>
+        <script scr = "./js/jquery.js"></script>
+		<script> listContacts(); </script>
+		<script> readCookie(); </script>
+		
 
 		<title>Manage Contacts</title>
 
@@ -28,19 +31,29 @@
 				<div class="container">
 					<form>
 						<center>
-							<h1 class="monospace">Welcome, {NAME_HERE}</h1>
+							<h1 id="welcomeheader" class="monospace"></h1>
 
-							<button type="submit" id="loginButton" class="btn btn-primary" onclick = "doLogin();">Search</button>
-							<button type="button" class="btn btn-primary" onclick = "">Create New</button>
+							<button type="submit" id="loginButton" class="btn btn-primary" onclick = "deleteContact();">Delete Test</button>
+							<button type="button" class="btn btn-primary" onclick="location.href = 'newContact.html';">Create New</button>
+
 						</center>
 
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
+							<input type="text" id="searchText" placeholder="Recipient's username" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
 							<div class="input-group-append" id="button-addon4">
-							  <button class="btn btn-outline-secondary" type="button">Button</button>
-							  <button class="btn btn-outline-secondary" type="button">Button</button>
+							  <button class="btn btn-outline-secondary" type="button" onclick = "searchContact();">Search</button>
 							</div>
-						  </div>
+						</div>
+
+						<center>
+							<span id="contactResult"></span>
+							<p id="contacts"></p>
+
+							<span id="contactSearchResult"></span>
+							<p id="contactList"></p>
+							<br /><br />
+						</center>
+
 					</form>
 
 				</div>

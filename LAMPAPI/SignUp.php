@@ -15,7 +15,7 @@
     }
     else
     {
-        $sql = "INSERT into user (FirstName, LastName, Password, Email) VALUES (' $firstName ', ' $lastName ', ' $password ', ' $email ')";
+        $sql = "INSERT into user (FirstName, LastName, Password, Email) VALUES ('$firstName', '$lastName', '$password', '$email')";
 
         if ( $result = $conn->query($sql) != TRUE )
         {
@@ -23,6 +23,7 @@
         }
 
         $conn->close();
+        returnNormal();
     }
 
     function getRequestInfo()
@@ -32,7 +33,13 @@
 
     function returnWithError( $err )
     {
-        $retValue = '{"error:"' . $err . '"}';
+        $retValue = '{"error" : "' . $err . '"}';
+        sendResultInfoAsJson( $retValue );
+    }
+
+    function returnNormal()
+    {
+        $retValue = '{"error":"none"}';
         sendResultInfoAsJson( $retValue );
     }
 
