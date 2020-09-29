@@ -6,6 +6,8 @@
     $lastName = $inData["lastName"];
     $email = $inData["email"];
     $password = $inData["password"];
+    $question1 = $inData["question1"];
+    $question2 = $inData["question2"];
 
     $conn = new mysqli("localhost", "nathaniellyra", "hello123", "contactmanager_database");
 
@@ -15,7 +17,7 @@
     }
     else
     {
-        $sql = "INSERT into user (FirstName, LastName, Password, Email) VALUES ('$firstName', '$lastName', '$password', '$email')";
+        $sql = "INSERT into user (FirstName, LastName, Password, Email, securityQAnswer1, securityQAnswer2) VALUES ('$firstName', '$lastName', '$password', '$email', '$question1', '$question2')";
 
         if ( $result = $conn->query($sql) != TRUE )
         {
