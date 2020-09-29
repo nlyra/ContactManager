@@ -24,8 +24,14 @@
             returnWithError( $conn->error );
         }
 
+        $sql = "SELECT userID FROM user WHERE Email = '$email'";
+        $result = $conn->query($sql);
+
+        $row = $result->fetch_assoc();
+        $id = $row["userID"];
+
         $conn->close();
-        returnNormal();
+        returnNormal( $id );
     }
 
     function getRequestInfo()
@@ -35,13 +41,13 @@
 
     function returnWithError( $err )
     {
-        $retValue = '{"error" : "' . $err . '"}';
+        $retValue = '{"userID" : 0, "error" : "' . $err . '"}';
         sendResultInfoAsJson( $retValue );
     }
 
-    function returnNormal()
+    function returnNormal( $id )
     {
-        $retValue = '{"error":"none"}';
+        $retValue = '{"userID" : ' . $id . ', "error" : "none"}';
         sendResultInfoAsJson( $retValue );
     }
 
