@@ -95,7 +95,6 @@ function readCookie()
 
 	}
 
-	/*
 	if( userId < 0 )
 	{
 		window.location.href = "http://cop4331.fun/index.html";
@@ -104,7 +103,7 @@ function readCookie()
 	{
 		document.getElementById("welcomeheader").innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 	}
-	*/
+
 }
 
 function doLogout()
@@ -171,6 +170,7 @@ function searchContact()
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
+		xhr.send(jsonPayload);
 		xhr.onreadystatechange = function()
 		{
 			if (this.readyState == 4 && this.status == 200)
@@ -204,7 +204,6 @@ function searchContact()
 				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");; 
 			}
 		};
-		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
@@ -228,6 +227,8 @@ function listContacts()
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
+		xhr.send(jsonPayload);
+
 		xhr.onreadystatechange = function()
 		{
 			if (this.readyState == 4 && this.status == 200)
@@ -260,11 +261,9 @@ function listContacts()
 				});
 
 				saveListCookie(contacts);
-				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");; 
+				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");
 			}
 		};
-
-		xhr.send(jsonPayload);
 
 	}
 	catch(err)
@@ -290,15 +289,18 @@ function deleteContact()
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
+		xhr.send(jsonPayload);
+
 		xhr.onreadystatechange = function()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
 				listContacts();
 				document.getElementById("userDeleteResult").innerHTML = "User has been deleted";
+				return;
 			}
 		};
-		xhr.send(jsonPayload);
+
 	}
 	catch(err)
 	{
@@ -328,6 +330,8 @@ function doSignup()
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
+		xhr.send(jsonPayload);
+
 		xhr.onreadystatechange = function()
 		{
 			if(this.readyState == 4 && this.status == 200)
@@ -337,8 +341,6 @@ function doSignup()
 				return;
 			}
 		};
-		xhr.send(jsonPayload);
-
 	}
 	catch(err)
 	{
