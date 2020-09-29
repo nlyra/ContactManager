@@ -1,5 +1,7 @@
 <?php
 
+    $duplicate = 'Duplicate contact';
+    $insertErr = 'Contact was not inserted properly';
     $inData = getRequestInfo();
 
     $userID = $inData["userID"];
@@ -12,18 +14,40 @@
 
     if ($conn->connect_error)
     {
-        returnWithError( $conn->connect_error);
+        returnWithError( $conn->connect_error );
     }
     else
     {
-        $sql = "INSERT into Contact (userID, FirstName, LastName, Email, PhoneNumber) VALUES ( $userID , ' $firstName ', ' $lastName ', ' $email ', ' $phoneNumber ')";
+        $result = $conn->query("SELECT * from Contact WHERE userID = $userID AND FirstName = '$firstName' AND LastName = '$lastName' AND Email = '$email' AND PhoneNumber = '$phoneNumber'");
+
+        if( $conn->affected_rows > 0 )
+        {
+            returnWithError( $duplicate );
+            $conn->close();
+            exit();
+        }
+
+        $sql = "INSERT into Contact (userID, FirstName, LastName, Email, PhoneNumber) VALUES ( $userID , '$firstName' , '$lastName' , '$email' , '$phoneNumber')";
 
         if ( $result = $conn->query($sql) != TRUE )
         {
-            returnWithError($conn->error);
+            returnWithError( $conn->error );
         }
 
-        $conn.close();
+        $result = $conn->query("SELECT * from Contact WHERE userID = $userID AND FirstName = '$firstName' AND LastName = '$lastName' AND Email = '$email' AND PhoneNumber = '$phoneNumber'");
+
+        if( $result->num_rows < 1)
+        {
+            returnWithError( $insertErr );
+            $conn->close();
+            exit();
+        }
+
+        $row = $result->fetch_assoc();
+        $id = $row["id"];
+
+        $conn->close();
+        returnNormal( $id );
     }
 
 
@@ -34,8 +58,14 @@
 
     function returnWithError( $err )
     {
-        $retValue = '{"Error:"' . $err . '"}';
+        $retValue = '{"Error" : "' . $err . '"}';
         sendResultInfoAsJson( $retValue );
+    }
+
+    function returnNormal( $id )
+    {
+        $retVal = '{"contactID" : ' . $id . '}';
+        sendResultInfoAsJson( $retVal );
     }
 
     function sendResultInfoAsJson( $obj )
