@@ -1,0 +1,73 @@
+<!doctype html>
+
+<html>
+	<head>
+		<script type="text/javascript" src="./js/md5.js"></script>
+		<script type="text/javascript" src="./js/script.js"></script>
+		<script scr = "./js/bootstrap.min.js"></script>
+		<link rel = "stylesheet" href = "./css/bootstrap.min.css">
+		<link rel = "stylesheet" href = "./css/all.min.css">
+		<link href="./css/style.css" rel="stylesheet">
+        <script scr = "./js/jquery.js"></script>
+		<script> listContacts(); </script>
+		<script> readCookie(); </script>
+
+		<title>Contact Manager</title>
+
+        <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
+    </head>
+
+	<div class="topnav">
+        <a href="index.html">Home</a>
+        <a href="newUser.html">New Users</a>
+		<a href="manageContacts.html" class="active">Contact List</a>
+		<a class="logout" href="logout.html">Log-Out</a>
+    </div>
+
+    <body>
+
+		<style>
+			body
+			{
+			    background-image: url(https://dur-duweb.newscyclecloud.com/storyimage/DU/20200317/LIFESTYLE03/200319672/AR/0/AR-200319672.jpg);
+			    background-repeat: no-repeat;
+			    background-attachment: fixed;
+			    background-size: cover;
+				background-color: white;
+				opacity: 1;
+			}
+		</style>
+
+		<div class="container">
+			<form>
+				<center>
+					<h1 id="welcomeheader" class="monospace"></h1>
+
+					<button type="submit" id="loginButton" class="btn btn-primary" onclick = "deleteContact();">Delete Test</button>
+					<button type="button" class="btn btn-primary" onclick="location.href = 'newContact.html';">Create New</button>
+
+				</center>
+
+				<div class="input-group">
+					<input type="text" id="searchText" placeholder="Recipient's username" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
+					<div class="input-group-append" id="button-addon4">
+					  <button class="btn btn-outline-secondary" type="button" onclick = "searchContact();">Search</button>
+					</div>
+				</div>
+
+				<center>
+					<span id="contactResult"></span>
+					<p id="contacts"></p>
+
+					<span id="contactSearchResult"></span>
+					<p id="contactList"></p>
+					<br /><br />
+				</center>
+
+			</form>
+
+		</div>
+		<br><br><br><br>
+    </body>
+
+</html>
