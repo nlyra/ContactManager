@@ -11,7 +11,7 @@
         <script scr = "./js/jquery.js"></script>
 		<script> listContacts(); </script>
         <script> readCookie(); </script>
-        <script> searchContacts(); </script>
+        <!--<script> searchContacts(); </script>-->
 
 		<title>Contact Manager</title>
 
@@ -32,96 +32,73 @@
                 max-height: 100%;
 			}
         </style>
-        
+
     <center>
 		<div class="containerManage">
 
-            <button type="button" class="btn btn-danger topCorner">Logout</button>
-            
-            <br><br><br>
+            <button type="button" class="btn btn-danger">Logout</button>
+			<button type="button" class="btn btn-primary" onclick="location.href = 'newContact.html';">Create New</button>
 
-            <input class="form-control mb-4 searchBar" id="tableSearch" type="text"
-                placeholder="Search..." onkeyup="searchContact()">
+            <input class="form-control mb-4 searchBar" id="searchText" type="text"
+                placeholder="Search...">
+			<button class="btn btn-outline-secondary" type="button" onclick = "searchContact();">Search</button>
 
-            <table class="table table-bordered table-striped">
+            <table id="table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th data-field="">First Name</th>
-                        <th data-field="">Last Name</th>
-                        <th data-field="">Email</th>
-                        <th data-field="">Phone Number</th>
+                        <th data-field="firstName">
+							<span class="text-success">
+								id
+							</span>
+						</th>
+						<th data-field="lastName">
+							<span class="text-success">
+								First Name
+							</span>
+						</th>
+						<th data-field="email">
+							<span class="text-success">
+								date
+							</span>
+						</th>
                     </tr>
+					<tr>
+					</tr>
                 </thead>
-
-                <tbody id="myTable">
-                    <tr>
-                      <td>John</td>
-                      <td>Doe</td>
-                      <td>john@example.com</td>
-                      <td>407-999-9999</td>
-                    </tr>
-                    <tr>
-                      <td>Mary</td>
-                      <td>Moe</td>
-                      <td>mary@mail.com</td>
-                      <td>407-999-9999</td>
-                    </tr>
-                    <tr>
-                      <td>July</td>
-                      <td>Dooley</td>
-                      <td>july@greatstuff.com</td>
-                      <td>407-999-9999</td>
-                    </tr>
-                    <tr>
-                      <td>Anja</td>
-                      <td>Ravendale</td>
-                      <td>a_r@test.com</td>
-                      <td>407-999-9999</td>
-                    </tr>
-                    <tr>
-                        <td>Anja</td>
-                        <td>Ravendale</td>
-                        <td>a_r@test.com</td>
-                        <td>407-999-9999</td>
-                    </tr>
-                    <tr>
-                        <td>Anja</td>
-                        <td>Ravendale</td>
-                        <td>a_r@test.com</td>
-                        <td>407-999-9999</td>
-                    </tr>
-                    <tr>
-                        <td>Anja</td>
-                        <td>Ravendale</td>
-                        <td>a_r@test.com</td>
-                        <td>407-999-9999</td>
-                    </tr>
-                    <tr>
-                        <td>Anja</td>
-                        <td>Ravendale</td>
-                        <td>a_r@test.com</td>
-                        <td>407-999-9999</td>
-                    </tr>
-                    <tr>
-                        <td>Anja</td>
-                        <td>Ravendale</td>
-                        <td>a_r@test.com</td>
-                        <td>407-999-9999</td>
-                    </tr>
-                    <tr>
-                        <td>Anja</td>
-                        <td>Ravendale</td>
-                        <td>a_r@test.com</td>
-                        <td>407-999-9999</td>
-                    </tr>
-                    <tr>
-                        <td>Anja</td>
-                        <td>Ravendale</td>
-                        <td>a_r@test.com</td>
-                        <td>407-999-9999</td>
-                    </tr>
-                  </tbody>
             </table>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  	<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+
+	<script type="text/javascript" src="js/script.js"></script>
+  	<script type="text/javascript">
+
+		var mydata = JSON.parse(jsonTest);
+
+	    $(document).ready(function () {
+			// Specify the JSON data to be displayed
+
+	      // Use the given data to create
+	      // the table and display it
+	      $('table').bootstrapTable({
+	        data: mydata
+	      });
+	    });
+
+
+  </script>
+
+
+			<center>
+				<span id="contactResult"></span>
+				<p id="contacts"></p>
+
+				<span id="contactSearchResult"></span>
+				<p id="contactList"></p>
+				<br /><br />
+			</center>
 
         </div>
     </center>
