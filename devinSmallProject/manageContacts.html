@@ -33,9 +33,8 @@
 						<center>
 							<h1 id="welcomeheader" class="monospace"></h1>
 
-							<button type="submit" id="loginButton" class="btn btn-primary" onclick = "deleteContact();">Delete Test</button>
+							<button type="button" id="loginButton" class="btn btn-primary" onclick = "deleteContact();">Delete Test</button>
 							<button type="button" class="btn btn-primary" onclick="location.href = 'newContact.html';">Create New</button>
-
 						</center>
 
 						<div class="input-group">
@@ -46,10 +45,17 @@
 						</div>
 
 						<center>
-							<span id="contactResult"></span>
-							<p id="contacts"></p>
+							<div>
+								<span id="userDeleteResult"></span>
+								<span id="contactResult"></span>
+								<span id="contactSearchResult"></span>
+							</div>
 
-							<span id="contactSearchResult"></span>
+							<div>
+								<span id="contactSearchResult2"></span>
+							</div>
+
+							<p id="contacts"></p>
 							<p id="contactList"></p>
 							<br /><br />
 						</center>

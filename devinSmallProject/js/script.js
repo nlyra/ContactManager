@@ -36,7 +36,6 @@ function doLogin()
 		if( userId < 1 )
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-			alert("User/Password combination incorrect\n " + "hash: " + hash);
 			return;
 		}
 
@@ -92,9 +91,14 @@ function readCookie()
 		{
 			userId = parseInt( tokens[1].trim() );
 		}
+		else if( tokens[0] == "contacts" )
+		{
+			contacts = parseInt( tokens[1].trim() );
+		}
 
 	}
 
+	/*
 	if( userId < 0 )
 	{
 		window.location.href = "http://cop4331.fun/index.html";
@@ -103,6 +107,7 @@ function readCookie()
 	{
 		document.getElementById("welcomeheader").innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 	}
+	*/
 
 }
 
@@ -135,15 +140,18 @@ function createContact()
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
+		xhr.send(jsonPayload);
+
 		xhr.onreadystatechange = function()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("userAddResult").innerHTML = "User has been added";
+				window.location.href = "http://cop4331.fun/manageContacts.html";
+				return;
 			}
 		};
 
-		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
@@ -162,6 +170,14 @@ function searchContact()
 
 	readCookie();
 
+	/*
+	// If if user has no contacts, display an error and return.
+	if(contacts.length < 1 || contacts == undefined){
+		document.getElementById("contactSearchResult2").innerHTML = "Nothing to search for. Your currently don't have any contact";
+		return;
+	}
+	*/
+
 	var jsonPayload = '{"search" : "' + srch + '", "userID" : "' + userId + '"}';
 	var url = urlBase + '/SearchContact.' + extension;
 
@@ -170,11 +186,18 @@ function searchContact()
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.send(jsonPayload);
 		xhr.onreadystatechange = function()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
+				var jsonObject = xhr.responseText;
+
+				if(jsonObject[jsonObject.length-2] == "[")
+				{
+					document.getElementById("contactSearchResult").innerHTML = "Sorry, no results found for " + srch;
+					return 0;
+				}
+
 				var jsonObject = JSON.parse( xhr.responseText );
 
 				jsonObject.forEach(item => {
@@ -186,24 +209,25 @@ function searchContact()
 
 						if(j == 1 )
 						{
-							contacts[i] = `${key}: ${value} `;
+							contactList[i] = `${key}: ${value} `;
 						}
 						else if(j == length) 
 						{
-							contacts[i] += ` ${key}: ${value} `;
+							contactList[i] += ` ${key}: ${value} `;
 						}
 						else
 						{
-							contacts[i] += ` ${key}: ${value} `;
+							contactList[i] += ` ${key}: ${value} `;
 						}
 					});
-					contacts[i] += "<br />\r\n";
+					contactList[i] += "<br />\r\n";
 					i++;
 					j = 0;
 				});
-				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");; 
+				document.getElementsByTagName("p")[0].innerHTML = contactList.join(" ");
 			}
 		};
+		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
@@ -227,13 +251,18 @@ function listContacts()
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.send(jsonPayload);
-
 		xhr.onreadystatechange = function()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
 				var jsonObject = JSON.parse( xhr.responseText );
+
+				// Return if no contacts were found in the database
+				if(jsonObject["error"] == "No Contacts Found")
+				{
+					document.getElementById("contactResult").innerHTML = jsonObject["error"];
+					return;
+				}
 
 				jsonObject.forEach(item => {
 					length = Object.entries(item).length;
@@ -264,6 +293,7 @@ function listContacts()
 				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");
 			}
 		};
+		xhr.send(jsonPayload);
 
 	}
 	catch(err)
@@ -274,33 +304,39 @@ function listContacts()
 
 function deleteContact()
 {
-	var firstName = "Javier";
-	var lastName = "Gonzalez";
-	var email = "test23@gmail.com";
-	var phoneNumber = "123445"
+	var userId = "82";
 
 	readCookie();
 
-	var jsonPayload = '{"userID" : "' + userId + '", "firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "email" : "' + email + '", "phoneNumber" : "' + phoneNumber + '"}';
+	var jsonPayload = '{"contactID" : "' + userId + '"}';
 	var url = urlBase + '/DeleteContact.' + extension;
+
+	document.getElementById("userDeleteResult").innerHTML = "";
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.send(jsonPayload);
-
 		xhr.onreadystatechange = function()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				listContacts();
-				document.getElementById("userDeleteResult").innerHTML = "User has been deleted";
-				return;
-			}
-		};
+				var jsonObject = JSON.parse( xhr.responseText );
 
+				// Return if an error was encounter
+				if(jsonObject["error"] == "No Contact Found") 
+				{
+					document.getElementById("userDeleteResult").innerHTML = "Trouble deleting contact";
+					return;
+				}
+
+				document.getElementById("userDeleteResult").innerHTML = "User has been deleted";
+				window.location.href = "http://cop4331.fun/manageContacts.html";
+			}
+
+		};
+		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
@@ -330,8 +366,6 @@ function doSignup()
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
-		xhr.send(jsonPayload);
-
 		xhr.onreadystatechange = function()
 		{
 			if(this.readyState == 4 && this.status == 200)
@@ -340,11 +374,13 @@ function doSignup()
 				window.location.href = "http://cop4331.fun/index.html";
 				return;
 			}
+
 		};
+
+		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
 		document.getElementById("signUpResult").innerHTML = err.message;
     }
-
 }

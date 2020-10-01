@@ -26,28 +26,42 @@ body
   font-size: 3vw;
 }
 
-#squestion{
+#squestion
+{
   color: white;
   font-size: 1.3vw;
   margin-top: 12%;
   margin-bottom: 5%;
 }
 
-#contactSearchResult{
-
+#contactSearchResult
+{
+  font-size: 2.5vw;
   color: white;
 }
 
-#contactList{
+#contactSearchResult2
+{
+  color: white;
+}
+
+#userDeleteResult{
+  color: white;
+}
+
+#contactList
+{
   color: white;
   margin-top: 2%;
 }
 
 #contactResult{
+
   color: white;
 }
 
-#contacts{
+#contacts
+{
   color: white;
   margin-top: 2%;
 }
