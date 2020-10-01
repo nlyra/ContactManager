@@ -51,7 +51,7 @@ function doLogin()
 	{
 		document.getElementById("loginResult").innerHTML = err.message;
     }
-    
+
     return false;
 }
 
@@ -125,7 +125,7 @@ function createContact()
 	var lastName = document.getElementById("lastName").value;
 	var email = document.getElementById("email").value;
 	var phoneNumber = document.getElementById("phoneNumber").value;
-	
+
 	document.getElementById("userAddResult").innerHTML = "";
 
 	var jsonPayload = '{"userID" : "' + userId + '", "firstName" : "' +  firstName + '", "lastName" : "' + lastName + '", "email" : "' + email + '", "phoneNumber" : "' + phoneNumber + '"}';
@@ -180,7 +180,7 @@ function searchContact()
 				jsonObject.forEach(item => {
 					length = Object.entries(item).length;
 
-					Object.entries(item).forEach(([key, value]) => 
+					Object.entries(item).forEach(([key, value]) =>
 					{
 						j++;
 
@@ -188,7 +188,7 @@ function searchContact()
 						{
 							contacts[i] = `${key}: ${value} `;
 						}
-						else if(j == length) 
+						else if(j == length)
 						{
 							contacts[i] += ` ${key}: ${value} `;
 						}
@@ -201,7 +201,7 @@ function searchContact()
 					i++;
 					j = 0;
 				});
-				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");; 
+				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");;
 			}
 		};
 		xhr.send(jsonPayload);
@@ -237,7 +237,7 @@ function listContacts()
 				jsonObject.forEach(item => {
 					length = Object.entries(item).length;
 
-					Object.entries(item).forEach(([key, value]) => 
+					Object.entries(item).forEach(([key, value]) =>
 					{
 						j++;
 
@@ -245,7 +245,7 @@ function listContacts()
 						{
 							contacts[i] = `${key}: ${value} `;
 						}
-						else if(j == length) 
+						else if(j == length)
 						{
 							contacts[i] += ` ${key}: ${value} `;
 						}
@@ -260,7 +260,7 @@ function listContacts()
 				});
 
 				saveListCookie(contacts);
-				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");; 
+				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");;
 			}
 		};
 
