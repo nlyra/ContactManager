@@ -10,19 +10,13 @@
 		<link href="./css/style.css" rel="stylesheet">
         <script scr = "./js/jquery.js"></script>
 		<script> listContacts(); </script>
-		<script> readCookie(); </script>
+        <script> readCookie(); </script>
+        <script> searchContacts(); </script>
 
 		<title>Contact Manager</title>
 
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
     </head>
-
-	<div class="topnav">
-        <a href="index.html">Home</a>
-        <a href="newUser.html">New Users</a>
-		<a href="manageContacts.html" class="active">Contact List</a>
-		<a class="logout" href="logout.html">Log-Out</a>
-    </div>
 
     <body>
 
@@ -34,39 +28,103 @@
 			    background-attachment: fixed;
 			    background-size: cover;
 				background-color: white;
-				opacity: 1;
+                opacity: 1;
+                max-height: 100%;
 			}
-		</style>
+        </style>
+        
+    <center>
+		<div class="containerManage">
 
-		<div class="container">
-			<form>
-				<center>
-					<h1 id="welcomeheader" class="monospace"></h1>
+            <button type="button" class="btn btn-danger topCorner">Logout</button>
+            
+            <br><br><br>
 
-					<button type="submit" id="loginButton" class="btn btn-primary" onclick = "deleteContact();">Delete Test</button>
-					<button type="button" class="btn btn-primary" onclick="location.href = 'newContact.html';">Create New</button>
+            <input class="form-control mb-4 searchBar" id="tableSearch" type="text"
+                placeholder="Search..." onkeyup="searchContact()">
 
-				</center>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th data-field="">First Name</th>
+                        <th data-field="">Last Name</th>
+                        <th data-field="">Email</th>
+                        <th data-field="">Phone Number</th>
+                    </tr>
+                </thead>
 
-				<div class="input-group">
-					<input type="text" id="searchText" placeholder="Recipient's username" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
-					<div class="input-group-append" id="button-addon4">
-					  <button class="btn btn-outline-secondary" type="button" onclick = "searchContact();">Search</button>
-					</div>
-				</div>
+                <tbody id="myTable">
+                    <tr>
+                      <td>John</td>
+                      <td>Doe</td>
+                      <td>john@example.com</td>
+                      <td>407-999-9999</td>
+                    </tr>
+                    <tr>
+                      <td>Mary</td>
+                      <td>Moe</td>
+                      <td>mary@mail.com</td>
+                      <td>407-999-9999</td>
+                    </tr>
+                    <tr>
+                      <td>July</td>
+                      <td>Dooley</td>
+                      <td>july@greatstuff.com</td>
+                      <td>407-999-9999</td>
+                    </tr>
+                    <tr>
+                      <td>Anja</td>
+                      <td>Ravendale</td>
+                      <td>a_r@test.com</td>
+                      <td>407-999-9999</td>
+                    </tr>
+                    <tr>
+                        <td>Anja</td>
+                        <td>Ravendale</td>
+                        <td>a_r@test.com</td>
+                        <td>407-999-9999</td>
+                    </tr>
+                    <tr>
+                        <td>Anja</td>
+                        <td>Ravendale</td>
+                        <td>a_r@test.com</td>
+                        <td>407-999-9999</td>
+                    </tr>
+                    <tr>
+                        <td>Anja</td>
+                        <td>Ravendale</td>
+                        <td>a_r@test.com</td>
+                        <td>407-999-9999</td>
+                    </tr>
+                    <tr>
+                        <td>Anja</td>
+                        <td>Ravendale</td>
+                        <td>a_r@test.com</td>
+                        <td>407-999-9999</td>
+                    </tr>
+                    <tr>
+                        <td>Anja</td>
+                        <td>Ravendale</td>
+                        <td>a_r@test.com</td>
+                        <td>407-999-9999</td>
+                    </tr>
+                    <tr>
+                        <td>Anja</td>
+                        <td>Ravendale</td>
+                        <td>a_r@test.com</td>
+                        <td>407-999-9999</td>
+                    </tr>
+                    <tr>
+                        <td>Anja</td>
+                        <td>Ravendale</td>
+                        <td>a_r@test.com</td>
+                        <td>407-999-9999</td>
+                    </tr>
+                  </tbody>
+            </table>
 
-				<center>
-					<span id="contactResult"></span>
-					<p id="contacts"></p>
-
-					<span id="contactSearchResult"></span>
-					<p id="contactList"></p>
-					<br /><br />
-				</center>
-
-			</form>
-
-		</div>
+        </div>
+    </center>
 		<br><br><br><br>
     </body>
 
