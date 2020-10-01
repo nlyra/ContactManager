@@ -1,0 +1,63 @@
+<!doctype html>
+
+<html>
+  <head>
+	  <script type="text/javascript" src="./js/md5.js"></script>
+	  <script type="text/javascript" src="./js/script.js"></script>
+	  <script scr = "./js/bootstrap.min.js"></script>
+	  <link rel = "stylesheet" href = "./css/bootstrap.min.css">
+	  <link rel = "stylesheet" href = "./css/all.min.css">
+	  <link href="./css/style.css" rel="stylesheet">
+	  <script scr = "./js/jquery.js"></script>
+
+	  <title>Contact Manager</title>
+
+      <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
+  </head>
+
+    <div class="topnav">
+        <a class="active" href="index.html">Home</a>
+        <a href="newUser.html">New Users</a>
+    </div>
+
+    <header>
+        <div class="overlay">
+            <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+                <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="container">
+            <form class="non-opaque" method="post">
+                <center>
+                    <h1 class="monospace">Summit Contacts</h1>
+                    <br><br>
+
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="text" class="form-control inputText" id="email" aria-describedby="emailHelp">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" class="form-control inputText" id="password">
+                        <br>
+                        <button type="submit" class="btn btn-outline-danger btn-sm"
+                            formaction="forgotPassword.html">Forgot password?</button>
+                    </div>
+
+                    <br>
+
+                    <button type="submit" id="loginButton" class="non-opaque btn btn-primary"
+                        onclick="return doLogin();">Login</button>
+                    <button type="submit" class="non-opaque btn btn-primary" formaction="newUser.html">New
+                        User?</button>
+
+                    <span id="loginResult"></span>
+
+                </center>
+            </form>
+        </div>
+    </header>
+
+</html>

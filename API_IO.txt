@@ -1,0 +1,106 @@
+""   -   Indicates string value, without them assume it is an integer.
+
+Object being sent to API must be a JSON. API will return a JSON object upon completion.
+ListContacts.php returns a JSON of JSONs, which is basically an array of JSON objects.
+
+
+I/O Specifications are as follows...
+------------------------------------
+
+Login.php:
+	IN
+	{
+	  "email" : "whateverTheEmailIs",
+	  "password" : "theirPassword"
+	}
+	
+	OUT
+	{
+	  "id" : id,
+	  "firstName" : "name",
+	  "lastName" : "name",
+	  "error" : "err"
+	}
+
+SignUp.php:
+	IN
+	{
+	  "firstName" : "name",
+	  "lastName" : "name",
+	  "email" : "whateverTheEmailIs",
+	  "password" : "theirPassword"
+	}
+
+	OUT
+	{
+	  "error" : "err"
+	}
+
+Add.php:
+	IN
+	{
+	  "userID" : id,
+	  "firstName" : "name",
+	  "lastName" : "name",
+	  "email" : "whateverTheEmailIs",
+	  "phoneNumber" : "6546846223"
+	}
+
+	OUT
+	{
+	  "error" : "err"
+	}
+
+ListContacts.php
+	IN
+	{
+	  "userID" : id
+	}
+
+	OUT (E.G. THREE CONTACTS STORED)
+	{
+	  {
+	   "id":id1,
+	   "firstName":"name",
+	   "lastName":"name",
+	   "email":"whateverTheEmailIs",
+	   "phoneNum":"6546846223",
+	   "dateCreated":"date",
+	   "error":"err"
+	  },
+
+	  {
+	   "id":id2,
+	   "firstName":"name",
+	   "lastName":"name",
+	   "email":"whateverTheEmailIs",
+	   "phoneNum":"6546846223",
+	   "dateCreated":"date",
+	   "error":"err"
+	  },
+
+	  {
+	   "id":id3,
+	   "firstName":"name",
+	   "lastName":"name",
+	   "email":"whateverTheEmailIs",
+	   "phoneNum":"6546846223",
+	   "dateCreated":"date",
+	   "error":"err"
+	  }
+	}
+
+DeleteContact.php
+	IN
+	{
+	   "id":id,
+	   "firstName":"name",
+	   "lastName":"name",
+	   "email":"whateverTheEmailIs",
+	   "phoneNum":"6546846223"
+	}
+
+	OUT
+	{
+	  "error" : "err"
+	}

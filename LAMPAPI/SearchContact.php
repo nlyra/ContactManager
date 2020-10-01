@@ -10,17 +10,19 @@
 	}
 	else
 	{
-		$sql = "SELECT * FROM Contact WHERE FirstName LIKE '%" . $inData["search"] . "%' and userID = " . $inData["userID"];
+		$sql = "SELECT * FROM Contact WHERE (FirstName LIKE '%" . $inData["search"] . "%'"
+					 . "OR LastName LIKE '%" . $inData["search"] . "%' OR PhoneNumber LIKE '%" . $inData["search"] . "%'"
+					 . "OR Email LIKE '%" . $inData["search"] . "%') and userID = " . $inData["userID"];
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0)
 		{
 			while($row = $result->fetch_assoc())
 			{
-				$arr = array("firstName" => $row["FirstName"],
+				$arr = array("contactID" => $row["id"],
+										 "firstName" => $row["FirstName"],
                      "lastName" => $row["LastName"],
                      "email" => $row["Email"],
-                     "phoneNumber" => $row["PhoneNumber"],
-                     "dateCreated" => $row["DateRecordCreated"]);
+                     "phoneNumber" => $row["PhoneNumber"]);
 
 				array_push($jsonArr, $arr);
 			}
@@ -48,7 +50,7 @@
 
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"id": 0,"firstName": "","lastName": "","error": "' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
