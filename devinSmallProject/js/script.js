@@ -122,7 +122,6 @@ function doLogout()
 
 function createContact()
 {
-
 	readCookie();
 
 	var firstName = document.getElementById("firstName").value;
@@ -263,7 +262,7 @@ function listContacts()
 					document.getElementById("contactResult").innerHTML = jsonObject["error"];
 					return;
 				}
-
+				
 				jsonObject.forEach(item => {
 					length = Object.entries(item).length;
 
