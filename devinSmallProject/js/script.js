@@ -170,9 +170,9 @@ function searchContact()
 	readCookie();
 
 	/*
-	// If if user has no contacts, display an error and return.
+	// If user has no contacts, display an error and return.
 	if(contacts.length < 1 || contacts == undefined){
-		document.getElementById("contactSearchResult2").innerHTML = "Nothing to search for. Your currently don't have any contact";
+		document.getElementById("contactSearchResult2").innerHTML = "Nothing to search for. You currently don't have any contacts";
 		return;
 	}
 	*/
@@ -236,10 +236,6 @@ function searchContact()
 
 function listContacts()
 {
-	var contacts = [];
-	var i = 0;
-    var j = 0;
-
 	readCookie();
 
 	var jsonPayload = '{"userID" : "' + userId + '"}';
