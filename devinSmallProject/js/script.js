@@ -5,19 +5,6 @@ var userId = 0;
 var firstName = "";
 var lastName = "";
 
-
-	var jsonTest =
-	`[
-		{
-			"id": "12345"
-			"name": "asdf"
-		},
-		{
-			"id": "543121"
-			"name": "jkhll"
-		}
-	]`;
-
 function doLogin()
 {
 	userId = 0;
@@ -251,7 +238,7 @@ function listContacts()
 {
 	var contacts = [];
 	var i = 0;
-	var j = 0;
+    var j = 0;
 
 	readCookie();
 
@@ -267,39 +254,16 @@ function listContacts()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				var da = JSON.parse( xhr.responseText );
-
-				da.forEach(item => {
-					length = Object.entries(item).length;
-
-					Object.entries(item).forEach(([key, value]) =>
-					{
-						j++;
-
-						if(j == 1 )
-						{
-							contacts[i] = `${value} `;
-						}
-						else if(j == length)
-						{
-							contacts[i] += ` ${value} `;
-						}
-						else
-						{
-							contacts[i] += ` ${value} `;
-						}
+				$(document).ready(function () {
+					$('table').bootstrapTable({
+					  data: jsonObject
 					});
-					contacts[i] += "<br />\r\n";
-					i++;
-					j = 0;
-				});
+				  });
 
-				saveListCookie(contacts);
-				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");
+				var jsonObject = JSON.parse(xhr.responseText) ;
 			}
 		};
 		xhr.send(jsonPayload);
-
 	}
 	catch(err)
 	{
