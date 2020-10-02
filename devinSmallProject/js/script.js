@@ -5,6 +5,19 @@ var userId = 0;
 var firstName = "";
 var lastName = "";
 
+
+	var jsonTest =
+	`[
+		{
+			"id": "12345"
+			"name": "asdf"
+		},
+		{
+			"id": "543121"
+			"name": "jkhll"
+		}
+	]`;
+
 function doLogin()
 {
 	userId = 0;
@@ -50,7 +63,7 @@ function doLogin()
 	{
 		document.getElementById("loginResult").innerHTML = err.message;
     }
-    
+
     return false;
 }
 
@@ -128,7 +141,7 @@ function createContact()
 	var lastName = document.getElementById("lastName").value;
 	var email = document.getElementById("email").value;
 	var phoneNumber = document.getElementById("phoneNumber").value;
-	
+
 	document.getElementById("userAddResult").innerHTML = "";
 
 	var jsonPayload = '{"userID" : "' + userId + '", "firstName" : "' +  firstName + '", "lastName" : "' + lastName + '", "email" : "' + email + '", "phoneNumber" : "' + phoneNumber + '"}';
@@ -202,7 +215,7 @@ function searchContact()
 				jsonObject.forEach(item => {
 					length = Object.entries(item).length;
 
-					Object.entries(item).forEach(([key, value]) => 
+					Object.entries(item).forEach(([key, value]) =>
 					{
 						j++;
 
@@ -210,7 +223,7 @@ function searchContact()
 						{
 							contactList[i] = `${key}: ${value} `;
 						}
-						else if(j == length) 
+						else if(j == length)
 						{
 							contactList[i] += ` ${key}: ${value} `;
 						}
@@ -223,7 +236,7 @@ function searchContact()
 					i++;
 					j = 0;
 				});
-				document.getElementsByTagName("p")[0].innerHTML = contactList.join(" ");
+				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");;
 			}
 		};
 		xhr.send(jsonPayload);
@@ -254,33 +267,26 @@ function listContacts()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				var jsonObject = JSON.parse( xhr.responseText );
+				var da = JSON.parse( xhr.responseText );
 
-				// Return if no contacts were found in the database
-				if(jsonObject["error"] == "No Contacts Found")
-				{
-					document.getElementById("contactResult").innerHTML = jsonObject["error"];
-					return;
-				}
-				
-				jsonObject.forEach(item => {
+				da.forEach(item => {
 					length = Object.entries(item).length;
 
-					Object.entries(item).forEach(([key, value]) => 
+					Object.entries(item).forEach(([key, value]) =>
 					{
 						j++;
 
 						if(j == 1 )
 						{
-							contacts[i] = `${key}: ${value} `;
+							contacts[i] = `${value} `;
 						}
-						else if(j == length) 
+						else if(j == length)
 						{
-							contacts[i] += ` ${key}: ${value} `;
+							contacts[i] += ` ${value} `;
 						}
 						else
 						{
-							contacts[i] += ` ${key}: ${value} `;
+							contacts[i] += ` ${value} `;
 						}
 					});
 					contacts[i] += "<br />\r\n";

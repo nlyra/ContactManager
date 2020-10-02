@@ -10,60 +10,100 @@
 		<link href="./css/style.css" rel="stylesheet">
         <script scr = "./js/jquery.js"></script>
 		<script> listContacts(); </script>
-		<script> readCookie(); </script>
-		
+        <script> readCookie(); </script>
+        <!--<script> searchContacts(); </script>-->
 
-		<title>Manage Contacts</title>
+		<title>Contact Manager</title>
 
-    	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-	</head>
+        <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
+    </head>
 
-	<body>
-		<main class="site-main">
-			<section class="site-banner">
+    <body>
 
-                <div class="topnav">
-                      <a class="active" href="index.html">Home</a>
-                      <a href="newuser.html">New Users</a>
-                      <a class="logout" href="logout.html">Log-Out</a>
-                </div>
+		<style>
+			body
+			{
+			    background-image: url(https://dur-duweb.newscyclecloud.com/storyimage/DU/20200317/LIFESTYLE03/200319672/AR/0/AR-200319672.jpg);
+			    background-repeat: no-repeat;
+			    background-attachment: fixed;
+			    background-size: cover;
+				background-color: white;
+                opacity: 1;
+                max-height: 100%;
+			}
+        </style>
 
-				<div class="container">
-					<form>
-						<center>
-							<h1 id="welcomeheader" class="monospace"></h1>
+    <center>
+		<div class="containerManage">
 
-							<button type="button" id="loginButton" class="btn btn-primary" onclick = "deleteContact();">Delete Test</button>
-							<button type="button" class="btn btn-primary" onclick="location.href = 'newContact.html';">Create New</button>
-						</center>
+            <button type="button" class="btn btn-danger">Logout</button>
+			<button type="button" class="btn btn-primary" onclick="location.href = 'newContact.html';">Create New</button>
 
-						<div class="input-group">
-							<input type="text" id="searchText" placeholder="Recipient's username" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
-							<div class="input-group-append" id="button-addon4">
-							  <button class="btn btn-outline-secondary" type="button" onclick = "searchContact();">Search</button>
-							</div>
-						</div>
+            <input class="form-control mb-4 searchBar" id="searchText" type="text"
+                placeholder="Search..." onkeyup="searchContact()">
 
-						<center>
-							<div>
-								<span id="userDeleteResult"></span>
-								<span id="contactResult"></span>
-								<span id="contactSearchResult"></span>
-							</div>
+            <button class="btn btn-outline-secondary" type="button" onclick = "searchContact()">Search</button>
 
-							<div>
-								<span id="contactSearchResult2"></span>
-							</div>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th data-field="firstName">
+							<span class="text-success">
+								id
+							</span>
+						</th>
+						<th data-field="lastName">
+							<span class="text-success">
+								First Name
+							</span>
+						</th>
+						<th data-field="email">
+							<span class="text-success">
+								date
+							</span>
+						</th>
+                    </tr>
+					<tr>
+					</tr>
+                </thead>
+            </table>
 
-							<p id="contacts"></p>
-							<p id="contactList"></p>
-							<br /><br />
-						</center>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  	<script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
 
-					</form>
+	<script type="text/javascript" src="js/script.js"></script>
+  	<script type="text/javascript">
 
-				</div>
-			</section>
-		</main>
-	</body>
+		var mydata = JSON.parse(jsonTest);
+
+	    $(document).ready(function () {
+			// Specify the JSON data to be displayed
+
+	      // Use the given data to create
+	      // the table and display it
+	      $('table').bootstrapTable({
+	        data: mydata
+	      });
+        });
+
+
+  </script>
+
+
+			<center>
+				<span id="contactResult"></span>
+				<p id="contacts"></p>
+
+				<span id="contactSearchResult"></span>
+				<p id="contactList"></p>
+				<br /><br />
+			</center>
+
+        </div>
+    </center>
+		<br><br><br><br>
+    </body>
+
 </html>
