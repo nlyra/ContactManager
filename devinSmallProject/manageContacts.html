@@ -40,10 +40,11 @@
 			<button type="button" class="btn btn-primary" onclick="location.href = 'newContact.html';">Create New</button>
 
             <input class="form-control mb-4 searchBar" id="searchText" type="text"
-                placeholder="Search...">
-			<button class="btn btn-outline-secondary" type="button" onclick = "searchContact();">Search</button>
+                placeholder="Search..." onkeyup="searchContact()">
 
-            <table id="table" class="table table-bordered table-striped">
+            <button class="btn btn-outline-secondary" type="button" onclick = "searchContact()">Search</button>
+
+            <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th data-field="firstName">
@@ -85,7 +86,7 @@
 	      $('table').bootstrapTable({
 	        data: mydata
 	      });
-	    });
+        });
 
 
   </script>
