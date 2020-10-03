@@ -281,8 +281,16 @@ function listContacts()
                 //     }, 1000);
                 //   });
 
-                var data = JSON.parse(xhr.responseText) ;
+		
+				var mydata = JSON.parse(xhr.responseText) ;
+				//var size = Object.keys(student).length
+				var value = '<button type="button" class="btn btn-teal btn-rounded btn-sm m-0">Button</button>';
 
+				for (var item in mydata) {
+					mydata["button"] = value;
+				}
+
+				/*
 				$(document).ready(function () {
 					$('table').bootstrapTable({
                     
@@ -295,7 +303,17 @@ function listContacts()
 					});
                 });
                   
-                $('table').bootstrapTable("hideLoading");
+				$('table').bootstrapTable("hideLoading");
+				*/
+
+				$(document).ready(function () { 
+  
+					// Use the given data to create  
+					// the table and display it 
+					$('table').bootstrapTable({ 
+					  data: mydata 
+					}); 
+				  }); 
 
 			}
 		};
