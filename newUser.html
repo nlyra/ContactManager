@@ -1,0 +1,87 @@
+<!doctype html>
+
+<html>
+  <head>
+	  <script type="text/javascript" src="./js/md5.js"></script>
+	  <script type="text/javascript" src="./js/script.js"></script>
+	  <script scr = "./js/bootstrap.min.js"></script>
+	  <link rel = "stylesheet" href = "./css/bootstrap.min.css">
+	  <link rel = "stylesheet" href = "./css/all.min.css">
+	  <link href="./css/style.css" rel="stylesheet">
+	  <script scr = "./js/jquery.js"></script>
+
+	  <title>New User Page</title>
+
+      <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
+  </head>
+
+    <div class="topnav">
+        <a href="index.html">Home</a>
+        <a href="newUser.html" class="active">New Users</a>
+    </div>
+
+    <body>
+
+		<style>
+			body
+			{
+			    background-image: url(https://nyc3.digitaloceanspaces.com/aph/app/uploads/2019/02/26161133/iStock-904084674.jpg);
+			    background-repeat: no-repeat;
+			    background-attachment: fixed;
+			    background-size: cover;
+				background-color: white;
+				opacity: 1;
+			}
+		</style>
+
+		<div class="container">
+			<form class="non-opaque">
+				<center>
+					<h2>Create a New User</h2>
+					<br><br>
+						<div class="col-lg-8">
+							<div class="form-group">
+				  				<label class="form-label" for="firstName">First Name</label>
+				  				<input type="text" class="form-control" id="firstName" placeholder="Ex. John">
+							</div>
+
+							<div class="form-group">
+				  				<label class="form-label" for="lastName">Last Name</label>
+				  				<input type="text" class="form-control" id="lastName" placeholder="Ex. Smith">
+							</div>
+
+							<div class="form-group">
+				  				<label class="form-label" for="email">Email</label>
+				  				<input type="text" class="form-control" id="email" placeholder="Ex. jsmith@gmail.com">
+							</div>
+
+							<div class="form-group">
+				  				<label class="form-label" for="password">Password</label>
+				  				<input type="password" class="form-control" id="password" placeholder="•••••••••">
+							</div>
+
+							<p id = "squestion">In case you forget your password</p>
+
+							<div class="form-group">
+								<label class="form-label" for="question1">What's the name of the city where you were born?</label>
+								<input type="text" class="form-control" id="question1" placeholder="Ex. Jamestown">
+						  </div>
+
+						  <div class="form-group">
+							<label class="form-label" for="question2">Who's your favorite POOPS professor?</label>
+							<input type="text" class="form-control" id="question2" placeholder="Leinecker or bust">
+					  </div>
+
+							<br>
+
+							<button type="submit" id="signinButton" class="btn btn-primary" onclick = "doSignup();">Submit</button>
+
+							<span id = "signUpResult"></span>
+						</div>
+				</center>
+			</form>
+		</div>
+		<br><br><br><br>
+    </body>
+
+</html>

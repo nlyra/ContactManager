@@ -1,0 +1,52 @@
+<!doctype html>
+
+<html>
+	<head>
+		<script type="text/javascript" src="./js/md5.js"></script>
+		<script type="text/javascript" src="./js/code.js"></script>
+		<script scr = "./js/bootstrap.min.js"></script>
+		<link rel = "stylesheet" href = "./css/bootstrap.min.css">
+		<link rel = "stylesheet" href = "./css/all.min.css">
+		<link href="./css/style.css" rel="stylesheet">
+		<script scr = "./js/jquery.js"></script>
+
+		<title>Success</title>
+
+    	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	</head>
+
+	<body>
+		<main class="site-main">
+			<section class="site-banner">
+
+                <div class="topnav">
+                      <a class="active" href="index.html">Home</a>
+                      <a href="newuser.html">New Users</a>
+                      <a class="logout" href="logout.html">Log-Out</a>
+                </div>
+
+				<div class="container">
+					<form action="success.html" target="_self" method="post">
+						<center>
+						<h1 class="monospace">You logged in.</h1>
+                        <br><br>
+							<div class="col-lg-5">
+								<div class="form-group">
+					 				<label for="loginName">Search for a contact</label>
+					  				<input type="text" class="form-control" id="loginName" aria-describedby="emailHelp">
+								</div>
+
+                                <br><br>
+
+								<button type="submit" id="loginButton" class="btn btn-primary" onclick = "doLogin();">Search</button>
+								<button type="button" class="btn btn-primary" onclick = "">Create New</button>
+
+								<span id = "loginResult"></span>
+							</div>
+						</center>
+					</form>
+				</div>
+			</section>
+		</main>
+	</body>
+</html>

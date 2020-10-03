@@ -14,7 +14,7 @@
 					 . "OR LastName LIKE '%" . $inData["search"] . "%' OR PhoneNumber LIKE '%" . $inData["search"] . "%'"
 					 . "OR Email LIKE '%" . $inData["search"] . "%') and userID = " . $inData["userID"];
 		$result = $conn->query($sql);
-		if ($result->num_rows > 0)
+		if ($conn->affected_rows > 0)
 		{
 			while($row = $result->fetch_assoc())
 			{
