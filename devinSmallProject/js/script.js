@@ -212,7 +212,6 @@ function searchContact()
                   
                 $('table').bootstrapTable("hideLoading");
 
-				var data = JSON.parse(xhr.responseText) ;
 			}
 		};
 		xhr.send(jsonPayload);
