@@ -198,7 +198,13 @@ function searchContact()
 				}
 
 				var data = JSON.parse(xhr.responseText) ;
-                console.log(data);
+				console.log(data);
+				
+				var value = '<button class="btn btn-info btn-sm" onclick="updateContact()">Edit</button> <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact()">Delete</button>';
+				
+				data.forEach(function (arrayItem) {
+					arrayItem["delete"] = value;
+				});
 
                 $(document).ready(function () {
                     $('table').bootstrapTable('load', data);
@@ -247,17 +253,14 @@ function listContacts()
                 //       $("#table").bootstrapTable("hideLoading");
                 //     }, 1000);
                 //   });
-
 		
-				var mydata = JSON.parse(xhr.responseText) ;
-				//var size = Object.keys(student).length
-				var value = '<button type="button" class="btn btn-teal btn-rounded btn-sm m-0">Button</button>';
+				var data = JSON.parse(xhr.responseText) ;
+				var value = '<button class="btn btn-info btn-sm" onclick="updateContact()">Edit</button> <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact()">Delete</button>';
+				
+				data.forEach(function (arrayItem) {
+					arrayItem["delete"] = value;
+				});
 
-				for (var item in mydata) {
-					mydata["button"] = value;
-				}
-
-				/*
 				$(document).ready(function () {
 					$('table').bootstrapTable({
                     
@@ -268,19 +271,10 @@ function listContacts()
                       },
                       hideLoading: true
 					});
-                });
-                  
-				$('table').bootstrapTable("hideLoading");
-				*/
+			
+				});
 
-				$(document).ready(function () { 
-  
-					// Use the given data to create  
-					// the table and display it 
-					$('table').bootstrapTable({ 
-					  data: mydata 
-					}); 
-				  }); 
+				$('table').bootstrapTable("hideLoading");
 
 			}
 		};
@@ -292,13 +286,12 @@ function listContacts()
 	}
 }
 
-function deleteContact()
+function deleteContact(contactID)
 {
-	var userId = "82";
 
 	readCookie();
 
-	var jsonPayload = '{"contactID" : "' + userId + '"}';
+	var jsonPayload = '{"contactID" : "' + contactID + '"}';
 	var url = urlBase + '/DeleteContact.' + extension;
 
 	document.getElementById("userDeleteResult").innerHTML = "";
