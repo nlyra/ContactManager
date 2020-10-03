@@ -197,44 +197,11 @@ function searchContact()
 					return 0;
 				}
 
-				var jsonObject = JSON.parse( xhr.responseText );
+				var data = JSON.parse(xhr.responseText) ;
+                console.log(data);
 
-				jsonObject.forEach(item => {
-					length = Object.entries(item).length;
-
-					Object.entries(item).forEach(([key, value]) =>
-					{
-						j++;
-
-						if(j == 1 )
-						{
-							contactList[i] = `${key}: ${value} `;
-						}
-						else if(j == length)
-						{
-							contactList[i] += ` ${key}: ${value} `;
-						}
-						else
-						{
-							contactList[i] += ` ${key}: ${value} `;
-						}
-					});
-					contactList[i] += "<br />\r\n";
-					i++;
-					j = 0;
-				});
-                document.getElementById("here")[0].innerHTML = contacts.join(" ");;
-                
                 $(document).ready(function () {
-					$('table').bootstrapTable({
-                    
-                      data: data,
-                      formatLoadingMessage: function ()
-                      {
-                          return ""
-                      },
-                      hideLoading: true
-					});
+                    $('table').bootstrapTable('load', data);
                 });
                   
                 $('table').bootstrapTable("hideLoading");
@@ -281,7 +248,8 @@ function listContacts()
                 //     }, 1000);
                 //   });
 
-                var data = JSON.parse(xhr.responseText) ;
+				var data = JSON.parse(xhr.responseText) ;
+				console.log(data);
 
 				$(document).ready(function () {
 					$('table').bootstrapTable({
