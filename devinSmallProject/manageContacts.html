@@ -47,47 +47,44 @@
 			<button type="button" class="btn btn-primary" onclick="location.href = 'newContact.html';">Create New</button>
 
             <input class="form-control mb-4 searchBar" id="searchText" type="text"
-                placeholder="Search..." onclick="searchContact()">
+                placeholder="Search..." onkeyup="searchContact()">
 
-            <button class="btn btn-outline-secondary" type="button" onclick = "searchContact()">Search</button>
-
-                <table class="table-striped border-success"> 
+                <table id="here"> 
 					<thead> 
 						<tr> 
-						<th data-field="contactID"> 
-							<span class="text-success"> 
-							Contact ID
-							</span> 
+                        <th>
+                            <button type="button">Edit</button>
+                            <button type="button">Delete</button>
+                        </th>
+                        <th data-field="firstName"> 
+                            <div>  
+                            First Name 
+                            </div> 
+                        </th> 
+                        <th data-field="lastName"> 
+							<div> 
+							Last Name 
+							<div> 
 						</th> 
 						<th data-field="email"> 
-							<span class="text-success"> 
+							<div> 
 							Email  
-							</span> 
-						</th> 
-						<th data-field="firstName"> 
-							<span class="text-success">  
-							First Name 
-							</span> 
-						</th> 
-						<th data-field="lastName"> 
-							<span class="text-success"> 
-							Last Name 
-							</span> 
+                            </div> 
 						</th> 
 						<th data-field="phoneNumber"> 
-							<span class="text-success"> 
+							<div> 
 							Phone Number  
-							</span> 
+                            </div> 
 						</th> 
 						</tr> 
 					</thead> 
 			</table>
 
 			<center>
-				<span id="contactResult"></span>
+				<div id="contactResult"></div>
 				<p id="contacts"></p>
 
-				<span id="contactSearchResult"></span>
+				<div id="contactSearchResult"></div>
 				<p id="contactList"></p>
 				<br /><br />
 			</center>

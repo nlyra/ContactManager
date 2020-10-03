@@ -223,7 +223,23 @@ function searchContact()
 					i++;
 					j = 0;
 				});
-				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");;
+                document.getElementById("here")[0].innerHTML = contacts.join(" ");;
+                
+                $(document).ready(function () {
+					$('table').bootstrapTable({
+                    
+                      data: data,
+                      formatLoadingMessage: function ()
+                      {
+                          return ""
+                      },
+                      hideLoading: true
+					});
+                });
+                  
+                $('table').bootstrapTable("hideLoading");
+
+				var data = JSON.parse(xhr.responseText) ;
 			}
 		};
 		xhr.send(jsonPayload);
@@ -250,13 +266,37 @@ function listContacts()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
+                // $(function() {
+                //     $('#table').bootstrapTable({
+                //       data: data,
+                //       formatLoadingMessage: function() {
+                //         return '<b>This is a custom loading message...</b>';
+                //       }
+                //     });
+                  
+                //     $("#table").bootstrapTable("showLoading");
+                  
+                //     setTimeout(function() {
+                //       $("#table").bootstrapTable("hideLoading");
+                //     }, 1000);
+                //   });
+
+                var data = JSON.parse(xhr.responseText) ;
+
 				$(document).ready(function () {
 					$('table').bootstrapTable({
-					  data: jsonObject
+                    
+                      data: data,
+                      formatLoadingMessage: function ()
+                      {
+                          return ""
+                      },
+                      hideLoading: true
 					});
-				  });
+                });
+                  
+                $('table').bootstrapTable("hideLoading");
 
-				var jsonObject = JSON.parse(xhr.responseText) ;
 			}
 		};
 		xhr.send(jsonPayload);
