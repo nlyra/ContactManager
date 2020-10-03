@@ -4,6 +4,8 @@ var extension = 'php';
 var userId = 0;
 var firstName = "";
 var lastName = "";
+var contactID = "";
+var data = {};
 
 function doLogin()
 {
@@ -254,9 +256,9 @@ function listContacts()
                 //   });
 		
 				var data = JSON.parse(xhr.responseText) ;
-				var value = '<button class="btn btn-info btn-sm" onclick="updateContact()">Edit</button> <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact()">Delete</button>';
-				
 				data.forEach(function (arrayItem) {
+					contactID = arrayItem["contactID"];
+					var value = '<button class="btn btn-info btn-sm" onclick="updateContact();">Edit</button> <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact(' + contactID + ');">Delete</button>';
 					arrayItem["delete"] = value;
 				});
 
@@ -270,7 +272,6 @@ function listContacts()
                       },
                       hideLoading: true
 					});
-			
 				});
 
 				$('table').bootstrapTable("hideLoading");
