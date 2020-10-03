@@ -258,7 +258,7 @@ function listContacts()
 				var data = JSON.parse(xhr.responseText) ;
 				data.forEach(function (arrayItem) {
 					contactID = arrayItem["contactID"];
-					var value = '<button class="btn btn-info btn-sm" onclick="updateContact();">Edit</button> <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact(' + contactID + ');">Delete</button>';
+					var value = '<button class="btn btn-info btn-sm" onclick="location.href = \'editContact.html\';">Edit</button> <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact(' + contactID + ');">Delete</button>';
 					arrayItem["delete"] = value;
 				});
 
@@ -324,6 +324,46 @@ function deleteContact(contactID)
 	catch(err)
 	{
 		document.getElementById("userDeleteResult").innerHTML = err.message;
+	}
+
+}
+
+function manageContacts(){
+
+
+	var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "email" : "' + email + '", "phoneNumber" : "' + phoneNumber + '"}';
+	var url = urlBase + '/UpdateContact.' + extension;
+
+	document.getElementById("updateResult").innerHTML = "";
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				var jsonObject = JSON.parse( xhr.responseText );
+
+				// Return if an error was encounter
+				if(jsonObject["error"] == "No Contact Found") 
+				{
+					document.getElementById("userDeleteResult").innerHTML = "Trouble updating contact";
+					return;
+				}
+
+				document.getElementById("updateResult").innerHTML = "User has been updated";
+				window.location.href = "http://cop4331.fun/manageContacts.html";
+			}
+
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("updateResult").innerHTML = err.message;
 	}
 
 }
