@@ -26,6 +26,7 @@
 
 				array_push($jsonArr, $arr);
 			}
+			returnNormal( $jsonArr );
 		}
 		else
 		{
@@ -33,8 +34,6 @@
 		}
 		$conn->close();
 	}
-
-	returnNormal( $jsonArr );
 
 
 	function getRequestInfo()

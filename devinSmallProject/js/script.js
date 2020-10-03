@@ -4,6 +4,8 @@ var extension = 'php';
 var userId = 0;
 var firstName = "";
 var lastName = "";
+var contactID = "";
+var data = {};
 
 function doLogin()
 {
@@ -36,7 +38,6 @@ function doLogin()
 		if( userId < 1 )
 		{
 			document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
-			alert("User/Password combination incorrect\n " + "hash: " + hash);
 			return;
 		}
 
@@ -51,7 +52,7 @@ function doLogin()
 	{
 		document.getElementById("loginResult").innerHTML = err.message;
     }
-    
+
     return false;
 }
 
@@ -92,6 +93,10 @@ function readCookie()
 		{
 			userId = parseInt( tokens[1].trim() );
 		}
+		else if( tokens[0] == "contacts" )
+		{
+			contacts = parseInt( tokens[1].trim() );
+		}
 
 	}
 
@@ -105,6 +110,7 @@ function readCookie()
 		document.getElementById("welcomeheader").innerHTML = "Welcome, " + firstName + " " + lastName + "!";
 	}
 	*/
+
 }
 
 function doLogout()
@@ -118,14 +124,13 @@ function doLogout()
 
 function createContact()
 {
-
 	readCookie();
 
 	var firstName = document.getElementById("firstName").value;
 	var lastName = document.getElementById("lastName").value;
 	var email = document.getElementById("email").value;
 	var phoneNumber = document.getElementById("phoneNumber").value;
-	
+
 	document.getElementById("userAddResult").innerHTML = "";
 
 	var jsonPayload = '{"userID" : "' + userId + '", "firstName" : "' +  firstName + '", "lastName" : "' + lastName + '", "email" : "' + email + '", "phoneNumber" : "' + phoneNumber + '"}';
@@ -136,15 +141,18 @@ function createContact()
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 	try
 	{
+		xhr.send(jsonPayload);
+
 		xhr.onreadystatechange = function()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
 				document.getElementById("userAddResult").innerHTML = "User has been added";
+				window.location.href = "http://cop4331.fun/manageContacts.html";
+				return;
 			}
 		};
 
-		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
@@ -163,6 +171,14 @@ function searchContact()
 
 	readCookie();
 
+	/*
+	// If user has no contacts, display an error and return.
+	if(contacts.length < 1 || contacts == undefined){
+		document.getElementById("contactSearchResult2").innerHTML = "Nothing to search for. You currently don't have any contacts";
+		return;
+	}
+	*/
+
 	var jsonPayload = '{"search" : "' + srch + '", "userID" : "' + userId + '"}';
 	var url = urlBase + '/SearchContact.' + extension;
 
@@ -175,33 +191,29 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				var jsonObject = JSON.parse( xhr.responseText );
+				var jsonObject = xhr.responseText;
 
-				jsonObject.forEach(item => {
-					length = Object.entries(item).length;
+				if(jsonObject[jsonObject.length-2] == "[")
+				{
+					document.getElementById("contactSearchResult").innerHTML = "Sorry, no results found for " + srch;
+					return 0;
+				}
 
-					Object.entries(item).forEach(([key, value]) => 
-					{
-						j++;
-
-						if(j == 1 )
-						{
-							contacts[i] = `${key}: ${value} `;
-						}
-						else if(j == length) 
-						{
-							contacts[i] += ` ${key}: ${value} `;
-						}
-						else
-						{
-							contacts[i] += ` ${key}: ${value} `;
-						}
-					});
-					contacts[i] += "<br />\r\n";
-					i++;
-					j = 0;
+				var data = JSON.parse(xhr.responseText) ;
+				console.log(data);
+				
+				var value = '<button class="btn btn-info btn-sm" onclick="updateContact()">Edit</button> <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact()">Delete</button>';
+				
+				data.forEach(function (arrayItem) {
+					arrayItem["delete"] = value;
 				});
-				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");; 
+
+                $(document).ready(function () {
+                    $('table').bootstrapTable('load', data);
+                });
+                  
+                $('table').bootstrapTable("hideLoading");
+
 			}
 		};
 		xhr.send(jsonPayload);
@@ -214,10 +226,6 @@ function searchContact()
 
 function listContacts()
 {
-	var contacts = [];
-	var i = 0;
-	var j = 0;
-
 	readCookie();
 
 	var jsonPayload = '{"userID" : "' + userId + '"}';
@@ -232,40 +240,45 @@ function listContacts()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				var jsonObject = JSON.parse( xhr.responseText );
-
-				jsonObject.forEach(item => {
-					length = Object.entries(item).length;
-
-					Object.entries(item).forEach(([key, value]) => 
-					{
-						j++;
-
-						if(j == 1 )
-						{
-							contacts[i] = `${key}: ${value} `;
-						}
-						else if(j == length) 
-						{
-							contacts[i] += ` ${key}: ${value} `;
-						}
-						else
-						{
-							contacts[i] += ` ${key}: ${value} `;
-						}
-					});
-					contacts[i] += "<br />\r\n";
-					i++;
-					j = 0;
+                // $(function() {
+                //     $('#table').bootstrapTable({
+                //       data: data,
+                //       formatLoadingMessage: function() {
+                //         return '<b>This is a custom loading message...</b>';
+                //       }
+                //     });
+                  
+                //     $("#table").bootstrapTable("showLoading");
+                  
+                //     setTimeout(function() {
+                //       $("#table").bootstrapTable("hideLoading");
+                //     }, 1000);
+                //   });
+		
+				var data = JSON.parse(xhr.responseText) ;
+				data.forEach(function (arrayItem) {
+					contactID = arrayItem["contactID"];
+					var value = '<button class="btn btn-info btn-sm" onclick="updateContact();">Edit</button> <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact(' + contactID + ');">Delete</button>';
+					arrayItem["delete"] = value;
 				});
 
-				saveListCookie(contacts);
-				document.getElementsByTagName("p")[0].innerHTML = contacts.join(" ");; 
+				$(document).ready(function () {
+					$('table').bootstrapTable({
+                    
+                      data: data,
+                      formatLoadingMessage: function ()
+                      {
+                          return ""
+                      },
+                      hideLoading: true
+					});
+				});
+
+				$('table').bootstrapTable("hideLoading");
+
 			}
 		};
-
 		xhr.send(jsonPayload);
-
 	}
 	catch(err)
 	{
@@ -273,17 +286,15 @@ function listContacts()
 	}
 }
 
-function deleteContact()
+function deleteContact(contactID)
 {
-	var firstName = "Javier";
-	var lastName = "Gonzalez";
-	var email = "test23@gmail.com";
-	var phoneNumber = "123445"
 
 	readCookie();
 
-	var jsonPayload = '{"userID" : "' + userId + '", "firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "email" : "' + email + '", "phoneNumber" : "' + phoneNumber + '"}';
+	var jsonPayload = '{"contactID" : "' + contactID + '"}';
 	var url = urlBase + '/DeleteContact.' + extension;
+
+	document.getElementById("userDeleteResult").innerHTML = "";
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -294,9 +305,19 @@ function deleteContact()
 		{
 			if (this.readyState == 4 && this.status == 200)
 			{
-				listContacts();
+				var jsonObject = JSON.parse( xhr.responseText );
+
+				// Return if an error was encounter
+				if(jsonObject["error"] == "No Contact Found") 
+				{
+					document.getElementById("userDeleteResult").innerHTML = "Trouble deleting contact";
+					return;
+				}
+
 				document.getElementById("userDeleteResult").innerHTML = "User has been deleted";
+				window.location.href = "http://cop4331.fun/manageContacts.html";
 			}
+
 		};
 		xhr.send(jsonPayload);
 	}
@@ -336,13 +357,13 @@ function doSignup()
 				window.location.href = "http://cop4331.fun/index.html";
 				return;
 			}
-		};
-		xhr.send(jsonPayload);
 
+		};
+
+		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
 		document.getElementById("signUpResult").innerHTML = err.message;
     }
-
 }
