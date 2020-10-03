@@ -4,6 +4,8 @@ var extension = 'php';
 var userId = 0;
 var firstName = "";
 var lastName = "";
+var contactID = "";
+var data = {};
 
 
 	var jsonTest =
@@ -210,49 +212,21 @@ function searchContact()
 					return 0;
 				}
 
-				var jsonObject = JSON.parse( xhr.responseText );
+				var data = JSON.parse(xhr.responseText) ;
+				console.log(data);
 
-				jsonObject.forEach(item => {
-					length = Object.entries(item).length;
+				var value = '<button class="btn btn-info btn-sm" onclick="updateContact()">Edit</button> <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact()">Delete</button>';
 
-					Object.entries(item).forEach(([key, value]) =>
-					{
-						j++;
-
-						if(j == 1 )
-						{
-							contactList[i] = `${key}: ${value} `;
-						}
-						else if(j == length)
-						{
-							contactList[i] += ` ${key}: ${value} `;
-						}
-						else
-						{
-							contactList[i] += ` ${key}: ${value} `;
-						}
-					});
-					contactList[i] += "<br />\r\n";
-					i++;
-					j = 0;
+				data.forEach(function (arrayItem) {
+					arrayItem["delete"] = value;
 				});
-                document.getElementById("here")[0].innerHTML = contacts.join(" ");;
 
                 $(document).ready(function () {
-					$('table').bootstrapTable({
-
-                      data: data,
-                      formatLoadingMessage: function ()
-                      {
-                          return ""
-                      },
-                      hideLoading: true
-					});
+                    $('table').bootstrapTable('load', data);
                 });
 
                 $('table').bootstrapTable("hideLoading");
 
-				var data = JSON.parse(xhr.responseText) ;
 			}
 		};
 		xhr.send(jsonPayload);
@@ -294,7 +268,12 @@ function listContacts()
                 //     }, 1000);
                 //   });
 
-                var data = JSON.parse(xhr.responseText) ;
+				var data = JSON.parse(xhr.responseText) ;
+				data.forEach(function (arrayItem) {
+					contactID = arrayItem["contactID"];
+					var value = '<button class="btn btn-info btn-sm" onclick="updateContact();">Edit</button> <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact(' + contactID + ');">Delete</button>';
+					arrayItem["delete"] = value;
+				});
 
 				$(document).ready(function () {
 					$('table').bootstrapTable({
@@ -306,9 +285,9 @@ function listContacts()
                       },
                       hideLoading: true
 					});
-                });
+				});
 
-                $('table').bootstrapTable("hideLoading");
+				$('table').bootstrapTable("hideLoading");
 
 			}
 		};
@@ -320,13 +299,12 @@ function listContacts()
 	}
 }
 
-function deleteContact()
+function deleteContact(contactID)
 {
-	var userId = "82";
 
 	readCookie();
 
-	var jsonPayload = '{"contactID" : "' + userId + '"}';
+	var jsonPayload = '{"contactID" : "' + contactID + '"}';
 	var url = urlBase + '/DeleteContact.' + extension;
 
 	document.getElementById("userDeleteResult").innerHTML = "";
