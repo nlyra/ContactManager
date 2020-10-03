@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<script type="text/javascript" src="./js/md5.js"></script>
-		<script type="text/javascript" src="./js/code.js"></script>
+		<script type="text/javascript" src="./js/script.js"></script>
 		<script scr = "./js/bootstrap.min.js"></script>
 		<link rel = "stylesheet" href = "./css/bootstrap.min.css">
 		<link rel = "stylesheet" href = "./css/all.min.css">
@@ -26,36 +26,36 @@
                 </div>
 
 				<div class="container">
-					<form action="https://previews.123rf.com/images/chagin/chagin1205/chagin120500226/13541697-group-of-happy-business-people-giving-the-thumbs-up-sign.jpg" target="_self" method="post">
+					<form method="post">
 						<center>
-						<h1 class="monospace">Edit a Contact</h1>
+						<h1 class="monospace">Edit Contact</h1>
 						<br><br>
 							<div class="col-lg-5">
 								<div class="form-group">
 					  				<label for="firstName">First Name</label>
-					  				<input type="text" class="form-control" id="firstName">
+					  				<input type="text" class="form-control" id="firstName" placeholder="firstName">
 								</div>
 
 								<div class="form-group">
 					  				<label for="lastName">Last Name</label>
-					  				<input type="text" class="form-control" id="lastName">
+					  				<input type="text" class="form-control" id="lastName" placeholder="lastName">
 								</div>
 
 								<div class="form-group">
 					  				<label for="email">Email</label>
-					  				<input type="text" class="form-control" id="email">
+					  				<input type="text" class="form-control" id="email" placeholder="email">
 								</div>
 
 								<div class="form-group">
-					  				<label for="password">Password</label>
-					  				<input type="password" class="form-control" id="password">
+					  				<label for="phoneNumber">Phone Number</label>
+					  				<input type="text" class="form-control" id="phoneNumber"  placeholder="phoneNumber">
 								</div>
 
 								<br><br>
 
-								<button type="submit" id="loginButton" class="btn btn-primary" onclick = "doLogin();">Submit</button>
+								<button type="submit" id="loginButton" class="btn btn-primary" onclick = "createContact(firstName,lastName,email,phoneNumber);">Submit</button>
 
-								<span id = "loginResult"></span>
+								<span id = "updateResult"></span>
 							</div>
 						</center>
 					</form>

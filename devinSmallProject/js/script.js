@@ -5,7 +5,8 @@ var userId = 0;
 var firstName = "";
 var lastName = "";
 var contactID = "";
-var data = {};
+var phoneNumber = "";
+var email = "";
 
 function doLogin()
 {
@@ -162,9 +163,6 @@ function createContact()
 
 function searchContact()
 {
-	var contactList = [];
-	var j = 0;
-	var i = 0;
 	var srch = document.getElementById("searchText").value;
 
 	document.getElementById("contactSearchResult").innerHTML = "";
@@ -201,12 +199,13 @@ function searchContact()
 
 				var data = JSON.parse(xhr.responseText) ;
 				console.log(data);
-				
+			
 				var value = '<button class="btn btn-info btn-sm" onclick="updateContact()">Edit</button> <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact()">Delete</button>';
 				
 				data.forEach(function (arrayItem) {
 					arrayItem["delete"] = value;
 				});
+				
 
                 $(document).ready(function () {
                     $('table').bootstrapTable('load', data);
@@ -257,8 +256,16 @@ function listContacts()
 		
 				var data = JSON.parse(xhr.responseText) ;
 				data.forEach(function (arrayItem) {
+
 					contactID = arrayItem["contactID"];
-					var value = '<button class="btn btn-info btn-sm" onclick="location.href = \'editContact.html\';">Edit</button> <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact(' + contactID + ');">Delete</button>';
+					firstName = arrayItem["firstName"];
+					lastName = arrayItem["lastName"];
+					phoneNumber = arrayItem["phoneNumber"];
+					email = arrayItem["email"];
+
+					// onclick= "manageContacts(' + firstName + ',' + lastName + ',' + email + ',' + phoneNumber + ')";"
+					var value = '<button class="btn btn-info btn-sm" onclick= "getContactToEdit(' + firstName + ',' + lastName + ',' + email + ',' + phoneNumber + ');">Edit</button>' + 
+					'<button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact(' + contactID + ');">Delete</button>';
 					arrayItem["delete"] = value;
 				});
 
@@ -307,7 +314,7 @@ function deleteContact(contactID)
 			{
 				var jsonObject = JSON.parse( xhr.responseText );
 
-				// Return if an error was encounter
+				// Return if there was an error
 				if(jsonObject["error"] == "No Contact Found") 
 				{
 					document.getElementById("userDeleteResult").innerHTML = "Trouble deleting contact";
@@ -328,8 +335,33 @@ function deleteContact(contactID)
 
 }
 
-function manageContacts(){
+function getContactToEdit(firstName2, lastName2, email2, phoneNumber2){
 
+	firstName = firstName2;
+	lastName = lastName2;
+	phoneNumber = phoneNumber2;
+	email = email2;
+
+	window.location.href = "http://cop4331.fun/editContact.html";
+	
+}
+
+function manageContacts(firstName, lastName, email, phoneNumber){
+		
+	var srchFirstName = document.getElementById("firstName").value;
+	var srchLastName = document.getElementById("lastName").value;
+	var srchEmail = document.getElementById("email").value;
+	var srchPhoneNumber = document.getElementById("phoneNumber").value;
+
+	if(srchFirstName != '\0')
+		firstName = srchFirstName;
+	else if(srchLastName != '\0')
+		lastName = srchLastName;
+	else if(srchEmail != '\0')
+		email = srchEmail;
+	else if(srchPhoneNumber != '\0')
+		phoneNumber = srchPhoneNumber;
+	
 
 	var jsonPayload = '{"firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "email" : "' + email + '", "phoneNumber" : "' + phoneNumber + '"}';
 	var url = urlBase + '/UpdateContact.' + extension;
@@ -347,8 +379,8 @@ function manageContacts(){
 			{
 				var jsonObject = JSON.parse( xhr.responseText );
 
-				// Return if an error was encounter
-				if(jsonObject["error"] == "No Contact Found") 
+				// Return if there was an error
+				if(jsonObject["error"] == "Contact could not be updated.") 
 				{
 					document.getElementById("userDeleteResult").innerHTML = "Trouble updating contact";
 					return;
