@@ -3,6 +3,7 @@
 
 /* Login Area */
 
+
 header {
     position: relative;
     background-color: grey;
@@ -57,28 +58,42 @@ header video {
     max-width: 65%;
 }
 
-#squestion{
+#squestion
+{
   color: white;
   font-size: 1.3vw;
   margin-top: 12%;
   margin-bottom: 5%;
 }
 
-#contactSearchResult{
-
+#contactSearchResult
+{
+  font-size: 2.5vw;
   color: white;
 }
 
-#contactList{
+#contactSearchResult2
+{
+  color: white;
+}
+
+#userDeleteResult{
+  color: white;
+}
+
+#contactList
+{
   color: white;
   margin-top: 2%;
 }
 
 #contactResult{
+
   color: white;
 }
 
-#contacts{
+#contacts
+{
   color: white;
   margin-top: 2%;
 }
@@ -111,7 +126,7 @@ label
     background: rgba(255, 255, 255, .6);
     background-size: auto;
     overflow: auto;
-    
+
     align-content: center;
     justify-content: center;
     align-items: center;
@@ -137,7 +152,7 @@ label
 .topCorner
 {
     position:absolute;
-    
+
     float: right;
     right: 27%;
     top: 12%;
