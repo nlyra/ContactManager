@@ -119,7 +119,7 @@ function readCookie()
 		}
 		else if( tokens[0] == "phoneNumber" )
 		{
-			phoneNumber = parseInt( tokens[1].trim() );
+			phoneNumber = tokens[1].trim();
 		}
 		else if( tokens[0] == "email" )
 		{
@@ -155,14 +155,33 @@ function doLogout()
 	window.location.href = "http://cop4331.fun/logout.html";
 }
 
+function addDash(element){
+
+    	let num = document.getElementById(element.id);
+        num = num.value.split('-').join('');    // Remove dash (-) if mistakenly entered.
+
+		let finalnum = num.match(/\d{3}(?=\d{2,3})|\d+/g).join("-");
+        document.getElementById(element.id).value = finalnum;
+}
+
+function openCreateContactModal(){
+
+	// ------ Open modal -----------
+	$(document).ready(function () {
+		$('#myModal2').modal('show');
+	});
+	// -----------------------------
+
+}
+
 function createContact()
 {
 	readCookie();
 
-	var firstName = document.getElementById("firstName").value;
-	var lastName = document.getElementById("lastName").value;
-	var email = document.getElementById("email").value;
-	var phoneNumber = document.getElementById("phoneNumber").value;
+	var firstName = document.getElementById("firstName2").value;
+	var lastName = document.getElementById("lastName2").value;
+	var email = document.getElementById("email2").value;
+	var phoneNumber = document.getElementById("phoneNumber2").value;
 
 	document.getElementById("userAddResult").innerHTML = "";
 
@@ -232,7 +251,8 @@ function searchContact()
 				var data = JSON.parse(xhr.responseText) ;
 				console.log(data);
 			
-				var value = '<button id="edit" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal"">Edit</button> <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact()">Delete</button>';
+				var value = '<button  type="Button" class="btn btn-info btn-sm" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');">Edit</button>' + 
+				' <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact(' + contactID + ');">Delete</button>';
 				
 				data.forEach(function (arrayItem) {
 					arrayItem["delete"] = value;
