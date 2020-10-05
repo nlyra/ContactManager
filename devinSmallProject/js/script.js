@@ -255,8 +255,8 @@ function searchContact()
 
 				var data = JSON.parse(xhr.responseText) ;
 			
-				var value = '<button  type="Button" class="btn btn-info btn-sm" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');">Edit</button>' + 
-				' <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact(' + contactID + ');">Delete</button>';
+				var value = '<button  type="Button" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</button>' + 
+				' <button type="Button" onclick="deleteContact(' + contactID + ');" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>';
 				
 				data.forEach(function (arrayItem) {
 					arrayItem["delete"] = value;
@@ -310,8 +310,8 @@ function listContacts()
 					arrayItem["phoneNumber"] = phoneNumber;
 					email = arrayItem["email"];
 
-					var value = '<button  type="Button" class="btn btn-info btn-sm" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');">Edit</button>' + 
-					' <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact(' + contactID + ');">Delete</button>';
+					var value = '<button  type="Button" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</button>' + 
+					' <button type="Button" onclick="deleteContact(' + contactID + ');" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>';
 					console.log(value);
 					arrayItem["delete"] = value;
 				});
