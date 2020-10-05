@@ -157,8 +157,10 @@ function doLogout()
 
 function addDash(element){
 
+		phoneNumber = phoneNumber.replace(/-/g,'')
     	let num = document.getElementById(element.id);
-        num = num.value.split('-').join('');    // Remove dash (-) if mistakenly entered.
+		num = num.value.split('-').join('');    // Remove dash (-) if mistakenly entered.
+		
 
 		let finalnum = num.match(/\d{3}(?=\d{2,3})|\d+/g).join("-");
         document.getElementById(element.id).value = finalnum;
@@ -182,6 +184,9 @@ function createContact()
 	var lastName = document.getElementById("lastName2").value;
 	var email = document.getElementById("email2").value;
 	var phoneNumber = document.getElementById("phoneNumber2").value;
+
+	phoneNumber = phoneNumber.replace(/\-/g, '');
+
 
 	document.getElementById("userAddResult").innerHTML = "";
 
@@ -249,13 +254,13 @@ function searchContact()
 				}
 
 				var data = JSON.parse(xhr.responseText) ;
-				console.log(data);
 			
 				var value = '<button  type="Button" class="btn btn-info btn-sm" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');">Edit</button>' + 
 				' <button type="Button" class="btn btn-danger btn-sm" onclick="deleteContact(' + contactID + ');">Delete</button>';
 				
 				data.forEach(function (arrayItem) {
 					arrayItem["delete"] = value;
+					arrayItem["phoneNumber"] = arrayItem["phoneNumber"].replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
 				});
 				
 
@@ -301,7 +306,8 @@ function listContacts()
 					contactID = arrayItem["contactID"];
 					firstName = arrayItem["firstName"];
 					lastName = arrayItem["lastName"];
-					phoneNumber = arrayItem["phoneNumber"];
+					phoneNumber = arrayItem["phoneNumber"].replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+					arrayItem["phoneNumber"] = phoneNumber;
 					email = arrayItem["email"];
 
 					var value = '<button  type="Button" class="btn btn-info btn-sm" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');">Edit</button>' + 
@@ -321,19 +327,6 @@ function listContacts()
                       hideLoading: true
 					});
 				});
-
-				/*
-				$(document).ready(function () {
-
-			
-					// Attach Button click event listener 
-				   $("#myBtn").click(function(){
-			   
-						// show Modal
-						$('#myModal').modal('show');
-				   });
-			   });
-			   */
 
 				$('table').bootstrapTable("hideLoading");
 
@@ -423,6 +416,7 @@ function manageContacts(){
 	var srchLastName = document.getElementById("lastName").value;
 	var srchEmail = document.getElementById("email").value;
 	var srchPhoneNumber = document.getElementById("phoneNumber").value;
+	srchPhoneNumber = srchPhoneNumber.replace(/\-/g, '');
 
 	if(srchFirstName != '')
 		firstName = srchFirstName;
