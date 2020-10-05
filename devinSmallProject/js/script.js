@@ -439,3 +439,48 @@ function doSignup()
 		document.getElementById("signUpResult").innerHTML = err.message;
     }
 }
+
+function resetPassword
+{
+	userId = 0;
+
+	var login = document.getElementById("email").value;
+	var q1 = document.getElementById("question1").value;
+	var q2 = document.getElementById("question2").value;
+
+	document.getElementById("resetResult").innerHTML = "";
+
+	var jsonPayload = '{"email" : "' + email + '", "question1" : "' + question1 + '", "question2" : "' + question2 + '"}';
+	var url = urlBase + '/ResetPassword.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, false);
+	xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.send(jsonPayload);
+
+		var jsonObject = JSON.parse( xhr.responseText );
+
+		userEmail = jsonObject.email;
+		userQ1 = jsonObject.question1;
+		userQ2 = jsonObject.question2;
+		console.log(userEmail);
+
+		if( userEmail < 1 || userQ1 !== q1 || userQ2 !== q2 )
+		{
+			document.getElementById("resetResult").innerHTML = "Incorrect security question answers or email.";
+			return;
+		}
+
+        window.location.href = "http://cop4331.fun/index.html";
+		saveCookie();
+
+	}
+	catch(err)
+	{
+		document.getElementById("resetResult").innerHTML = err.message;
+    }
+
+    return false;
+}
