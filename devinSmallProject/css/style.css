@@ -53,6 +53,7 @@ header video {
   font-size: 4vw;
 }
 
+
 .inputText
 {
     max-width: 65%;
@@ -98,11 +99,6 @@ header video {
   margin-top: 2%;
 }
 
-label
-{
-    color: white;
-}
-
 .site-main .site-banner
 {
     background-size: auto;
@@ -143,6 +139,17 @@ label
     margin-top: 5%;
 
 }
+
+.input-label{
+
+  color: black;
+
+}
+
+input{
+    font-family: FontAwesome;
+}
+
 
 .searchBar
 {
