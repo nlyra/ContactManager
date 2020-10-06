@@ -246,24 +246,34 @@ function searchContact()
 			if (this.readyState == 4 && this.status == 200)
 			{
 				var jsonObject = xhr.responseText;
+				var data = JSON.parse(xhr.responseText) ;
 
-				if(jsonObject[jsonObject.length-2] == "[")
+				// If error display message and return
+				if((jsonObject[jsonObject.length-2] == "[") || (data["error"] == "No Records Found"))
 				{
+					$('table').bootstrapTable('hideAllColumns');
 					document.getElementById("contactSearchResult").innerHTML = "Sorry, no results found for " + srch;
 					return 0;
 				}
 
 				var data = JSON.parse(xhr.responseText) ;
 
-				var value = '<button  type="Button" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</button>' +
-				' <button type="Button" onclick="deleteContact(' + contactID + ');" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>';
-
 				data.forEach(function (arrayItem) {
+					// Updating global variables
+					contactID = arrayItem["contactID"];
+					firstName = arrayItem["firstName"];
+					lastName = arrayItem["lastName"];
+					phoneNumber = arrayItem["phoneNumber"].replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+					arrayItem["phoneNumber"] = phoneNumber;
+					email = arrayItem["email"];
+
+					var value = '<button  type="Button" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</button>' +
+					' <button type="Button" onclick="deleteContact(' + contactID + ');" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>';
+
 					arrayItem["delete"] = value;
-					arrayItem["phoneNumber"] = arrayItem["phoneNumber"].replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
 				});
 
-
+				$('table').bootstrapTable('showAllColumns');
 
                 $(document).ready(function () {
                     $('table').bootstrapTable('load', data);
@@ -304,6 +314,7 @@ function listContacts()
 				var data = JSON.parse(xhr.responseText) ;
 				data.forEach(function (arrayItem) {
 
+					// Updating global variables
 					contactID = arrayItem["contactID"];
 					firstName = arrayItem["firstName"];
 					lastName = arrayItem["lastName"];
@@ -313,7 +324,7 @@ function listContacts()
 
 					var value = '<button  type="Button" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</button>' +
 					' <button type="Button" onclick="deleteContact(' + contactID + ');" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>';
-					console.log(value);
+
 					arrayItem["delete"] = value;
 				});
 
@@ -368,7 +379,7 @@ function deleteContact(contactID)
 					document.getElementById("userDeleteResult").innerHTML = "Trouble deleting contact";
 					return;
 				}
-				
+
 				document.getElementById("userDeleteResult").innerHTML = "User has been deleted";
 				window.location.href = "http://cop4331.fun/manageContacts.html";
 			}
