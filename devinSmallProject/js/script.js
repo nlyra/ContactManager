@@ -258,9 +258,6 @@ function searchContact()
 
 				var data = JSON.parse(xhr.responseText) ;
 			
-				var value = '<button  type="Button" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</button>' + 
-				' <button type="Button" onclick="deleteContact(' + contactID + ');" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>';
-				
 				data.forEach(function (arrayItem) {
 					// Updating global variables
 					contactID = arrayItem["contactID"];
@@ -269,6 +266,10 @@ function searchContact()
 					phoneNumber = arrayItem["phoneNumber"].replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
 					arrayItem["phoneNumber"] = phoneNumber;
 					email = arrayItem["email"];
+
+					var value = '<button  type="Button" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</button>' + 
+					' <button type="Button" onclick="deleteContact(' + contactID + ');" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>';
+				
 					arrayItem["delete"] = value;
 				});
 				
