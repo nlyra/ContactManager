@@ -368,7 +368,7 @@ function deleteContact(contactID)
 					document.getElementById("userDeleteResult").innerHTML = "Trouble deleting contact";
 					return;
 				}
-
+				
 				document.getElementById("userDeleteResult").innerHTML = "User has been deleted";
 				window.location.href = "http://cop4331.fun/manageContacts.html";
 			}
@@ -509,18 +509,18 @@ function doSignup()
 	return false;
 }
 
-function resetPassword
+function forgotPassword
 {
 	userId = 0;
 
-	var login = document.getElementById("email").value;
+	var email = document.getElementById("email").value;
 	var q1 = document.getElementById("question1").value;
 	var q2 = document.getElementById("question2").value;
 
-	document.getElementById("resetResult").innerHTML = "";
+	document.getElementById("forgotResult").innerHTML = "";
 
-	var jsonPayload = '{"email" : "' + email + '", "question1" : "' + question1 + '", "question2" : "' + question2 + '"}';
-	var url = urlBase + '/ResetPassword.' + extension;
+	var jsonPayload = '{"password" : "' + password + '", "email" : "' + email + '", "question1" : "' + question1 + '", "question2" : "' + question2 + '"}';
+	var url = urlBase + '/ForgotPassword.' + extension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, false);
@@ -536,9 +536,16 @@ function resetPassword
 		userQ2 = jsonObject.question2;
 		console.log(userEmail);
 
-		if( userEmail < 1 || userQ1 !== q1 || userQ2 !== q2 )
+		// I think this is wrong, didn't have time to test
+		if (userEmail !== email)
 		{
-			document.getElementById("resetResult").innerHTML = "Incorrect security question answers or email.";
+			document.getElementById("forgotResult").innerHTML = "Email incorrect or does not exist.";
+			return;
+		}
+
+		if(userQ1 !== q1 || userQ2 !== q2)
+		{
+			document.getElementById("forgotResult").innerHTML = "Incorrect security question answers.";
 			return;
 		}
 
@@ -548,7 +555,7 @@ function resetPassword
 	}
 	catch(err)
 	{
-		document.getElementById("resetResult").innerHTML = err.message;
+		document.getElementById("forgotResult").innerHTML = err.message;
     }
 
     return false;
