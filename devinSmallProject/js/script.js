@@ -420,6 +420,7 @@ function fillPlaceholderValues() {
 	document.getElementById("email").value = email;
 	document.getElementById("phoneNumber").value = phoneNumber;
 }
+
 function manageContacts(){
 
 	readCookie();
@@ -520,7 +521,7 @@ function doSignup()
 	return false;
 }
 
-function forgotPassword
+function forgotPassword()
 {
 	userId = 0;
 
