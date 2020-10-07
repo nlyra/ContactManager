@@ -267,3 +267,20 @@ input{
         display: none;
     }
 }
+
+.scrollbar-primary::-webkit-scrollbar
+{
+    width: 12px;
+}
+
+.scrollbar-primary::-webkit-scrollbar-thumb
+{
+    border-radius: 10000px;
+    -webkit-box-shadow: inset 0 0 3px rgba(255, 255, 255, 1);
+    background-color: #4285F4;
+}
+
+.scrollbar-primary
+{
+    scrollbar-color: #4285F4 #F5F5F5;
+}
