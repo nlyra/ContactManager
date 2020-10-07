@@ -19,8 +19,8 @@
 		<script> readCookie(); </script>
 
         <!--<script> searchContacts(); </script>-->
-		<script> 
-	
+		<script>
+
 		</script>
 
 		<title>Contact Manager</title>
@@ -44,46 +44,53 @@
 			}
         </style>
 
-    <center>
-		<div class="containerManage">
 
-            <button type="button" class="btn btn-danger">Logout</button>
-			<button type="button" class="btn btn-primary" onclick="openCreateContactModal();">Create New</button>
+
+    <center>
+		<div class="containerManage scrollbar-primary">
+			<div class="text-right">
+				<button type="button" class="btn btn-danger fpBtn logoutBtn"
+					onclick="doLogout();">Logout</button>
+			</div>
+			<button type="button" class="btn btn-primary fpBtn" onclick="openCreateContactModal();">Create New</button>
+
+			<br><br>
 
             <input class="form-control mb-4 searchBar" id="searchText" type="text"
-                placeholder="&#xf002  Search..." onkeyup="searchContact()">
+                placeholder="&#xf002;  Search..." onkeyup="searchContact()">
 
 				<!-- Table -->
-                <table id="contactTable" class="table table-striped table-responsive-md btn-table"> 
-					<thead> 
-						<tr> 
-                        <th data-field="firstName"> 
-                            <div>  
-                            First Name 
-                            </div> 
-                        </th> 
-                        <th data-field="lastName"> 
-							<div> 
-							Last Name 
-							<div> 
-						</th> 
-						<th data-field="email"> 
-							<div> 
-							Email  
-                            </div> 
-						</th> 
-						<th data-field="phoneNumber"> 
-							<div> 
-							Phone Number  
-                            </div> 
-						</th> 
-						<th data-field="delete"> 
-							<div> 
-                           </div> 
-						</th> 
-						</tr> 
+                <table id="contactTable" class="table table-striped
+					table-responsive-md table-hover btn-table">
+					<thead class="thead-light">
+						<tr>
+                        <th data-field="firstName">
+                            <div>
+                            First Name
+                            </div>
+                        </th>
+                        <th data-field="lastName">
+							<div>
+							Last Name
+							<div>
+						</th>
+						<th data-field="email">
+							<div>
+							Email
+                            </div>
+						</th>
+						<th data-field="phoneNumber">
+							<div>
+							Phone Number
+                            </div>
+						</th>
+						<th data-field="delete">
+							<div>
+                           </div>
+						</th>
+						</tr>
 					</thead>
-					
+
 					<tbody>
 					</tbody>
 			</table>
@@ -124,7 +131,7 @@
 					</div>
 				</div>
 			</div>
-		
+
 			<!-- Create Contact Modal -->
 			<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
 				<div class="modal-dialog">
@@ -136,24 +143,24 @@
 						<div class="modal-body">
 							<div class="form-group">
 								<label class="input-label" style="margin-right:382px" for="firstName">First Name</label>
-								<input type="text" class="form-control" id="firstName2" placeholder="&#xf007  Ex. John">
+								<input type="text" class="form-control" id="firstName2" placeholder="&#xf007;  Ex. John">
 							</div>
-	
+
 							<div class="form-group">
 								<label class="input-label" style="margin-right:382px" for="lastName">Last Name</label>
-								<input type="text" class="form-control" id="lastName2" placeholder="&#xf007  Ex. Smith">
+								<input type="text" class="form-control" id="lastName2" placeholder="&#xf007;  Ex. Smith">
 							</div>
-	
+
 							<div class="form-group">
 								<label class="input-label" style="margin-right:420px" for="email">Email</label>
-								<input type="text" class="form-control" id="email2" placeholder="&#xf0e0  Ex. jsmith@gmail.com">
+								<input type="text" class="form-control" id="email2" placeholder="&#xf0e0;  Ex. jsmith@gmail.com">
 							</div>
-	
+
 							<div class="form-group">
 								<label class="input-label" style="margin-right:347px" for="phoneNumber">Phone Number</label>
-								<input type="text" class="form-control" id="phoneNumber2" onkeyup="addDash(this)" placeholder="&#xf3cd  Ex. 123-345-6789">
+								<input type="text" class="form-control" id="phoneNumber2" onkeyup="addDash(this)" placeholder="&#xf3cd;  Ex. 123-345-6789">
 							</div>
-	
+
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Close</button>
@@ -176,6 +183,7 @@
 			</center>
 
         </div>
+
     </center>
 
 		<br><br><br><br>

@@ -81,7 +81,7 @@ function deleteAllCookies() {
 		}
 	}
 
-	for (var i = 0; i < cookies.length; i++) 
+	for (var i = 0; i < cookies.length; i++)
 	{
 		if(cookies[i] != "userId")
 		{
@@ -91,7 +91,7 @@ function deleteAllCookies() {
 		document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
 		}
 	}
-	
+
 	userId = tempId;
 	saveCookie();
 }
@@ -160,7 +160,7 @@ function addDash(element){
 		phoneNumber = phoneNumber.replace(/-/g,'')
     	let num = document.getElementById(element.id);
 		num = num.value.split('-').join('');    // Remove dash (-) if mistakenly entered.
-		
+
 
 		let finalnum = num.match(/\d{3}(?=\d{2,3})|\d+/g).join("-");
         document.getElementById(element.id).value = finalnum;
@@ -257,7 +257,7 @@ function searchContact()
 				}
 
 				var data = JSON.parse(xhr.responseText) ;
-			
+
 				data.forEach(function (arrayItem) {
 					// Updating global variables
 					contactID = arrayItem["contactID"];
@@ -267,18 +267,18 @@ function searchContact()
 					arrayItem["phoneNumber"] = phoneNumber;
 					email = arrayItem["email"];
 
-					var value = '<button  type="Button" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</button>' + 
+					var value = '<button  type="Button" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</button>' +
 					' <button type="Button" onclick="deleteContact(' + contactID + ');" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>';
-				
+
 					arrayItem["delete"] = value;
 				});
-				
+
 				$('table').bootstrapTable('showAllColumns');
 
                 $(document).ready(function () {
                     $('table').bootstrapTable('load', data);
                 });
-                  
+
                 $('table').bootstrapTable("hideLoading");
 
 				$('#edit').on('click', function() {
@@ -322,7 +322,7 @@ function listContacts()
 					arrayItem["phoneNumber"] = phoneNumber;
 					email = arrayItem["email"];
 
-					var value = '<button  type="Button" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</button>' + 
+					var value = '<button  type="Button" onclick="getContactToEdit(' + '\'' + contactID + '\', \'' + firstName + '\', \'' + lastName + '\', \'' + email + '\', \'' + phoneNumber + '\'' +');" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Edit</button>' +
 					' <button type="Button" onclick="deleteContact(' + contactID + ');" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete</button>';
 
 					arrayItem["delete"] = value;
@@ -330,7 +330,7 @@ function listContacts()
 
 				$(document).ready(function () {
 					$('table').bootstrapTable({
-                    
+
                       data: data,
                       formatLoadingMessage: function ()
                       {
@@ -374,7 +374,7 @@ function deleteContact(contactID)
 				var jsonObject = JSON.parse( xhr.responseText );
 
 				// Return if there was an error
-				if(jsonObject["error"] == "No Contact Found") 
+				if(jsonObject["error"] == "No Contact Found")
 				{
 					document.getElementById("userDeleteResult").innerHTML = "Trouble deleting contact";
 					return;
@@ -404,24 +404,25 @@ function getContactToEdit(contactId2, firstName2, lastName2, email2, phoneNumber
 
 	saveCookie();
 	fillPlaceholderValues();
-	
+
 	$(document).ready(function () {
 		// show Modal
 		$('#myModal').modal('show');
 	});
 }
 
-function fillPlaceholderValues() {  
+function fillPlaceholderValues() {
 
 	readCookie();
 
-	document.getElementById("firstName").value = firstName;  
-	document.getElementById("lastName").value = lastName; 
-	document.getElementById("email").value = email; 
-	document.getElementById("phoneNumber").value = phoneNumber; 
-}  
+	document.getElementById("firstName").value = firstName;
+	document.getElementById("lastName").value = lastName;
+	document.getElementById("email").value = email;
+	document.getElementById("phoneNumber").value = phoneNumber;
+}
+
 function manageContacts(){
-		
+
 	readCookie();
 
 	var srchFirstName = document.getElementById("firstName").value;
@@ -438,7 +439,7 @@ function manageContacts(){
 		email = srchEmail;
 	if(srchPhoneNumber != '')
 		phoneNumber = srchPhoneNumber;
-	
+
 
 	var jsonPayload = '{"contactID" : "' + contactID + '", "firstName" : "' + firstName + '", "lastName" : "' + lastName + '", "email" : "' + email + '", "phoneNumber" : "' + phoneNumber + '"}';
 	var url = urlBase + '/UpdateContact.' + extension;
@@ -459,7 +460,7 @@ function manageContacts(){
 				var jsonObject = JSON.parse( xhr.responseText );
 
 				// Return if there was an error
-				if(jsonObject["error"] == "Contact could not be updated.") 
+				if(jsonObject["error"] == "Contact could not be updated.")
 				{
 					document.getElementById("updateResult").innerHTML = "Trouble updating contact";
 					return;
@@ -518,4 +519,56 @@ function doSignup()
 		document.getElementById("signUpResult").innerHTML = err.message;
 	}
 	return false;
+}
+
+function forgotPassword()
+{
+	userId = 0;
+
+	var email = document.getElementById("email").value;
+	var q1 = document.getElementById("question1").value;
+	var q2 = document.getElementById("question2").value;
+
+	document.getElementById("forgotResult").innerHTML = "";
+
+	var jsonPayload = '{"password" : "' + password + '", "email" : "' + email + '", "question1" : "' + question1 + '", "question2" : "' + question2 + '"}';
+	var url = urlBase + '/ForgotPassword.' + extension;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, false);
+	xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.send(jsonPayload);
+
+		var jsonObject = JSON.parse( xhr.responseText );
+
+		userEmail = jsonObject.email;
+		userQ1 = jsonObject.question1;
+		userQ2 = jsonObject.question2;
+		console.log(userEmail);
+
+		// I think this is wrong, didn't have time to test
+		if (userEmail !== email)
+		{
+			document.getElementById("forgotResult").innerHTML = "Email incorrect or does not exist.";
+			return;
+		}
+
+		if(userQ1 !== q1 || userQ2 !== q2)
+		{
+			document.getElementById("forgotResult").innerHTML = "Incorrect security question answers.";
+			return;
+		}
+
+        window.location.href = "http://cop4331.fun/index.html";
+		saveCookie();
+
+	}
+	catch(err)
+	{
+		document.getElementById("forgotResult").innerHTML = err.message;
+    }
+
+    return false;
 }

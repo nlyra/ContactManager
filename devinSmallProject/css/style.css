@@ -117,7 +117,7 @@ header video {
     background: rgba(255, 255, 255, .6);
     background-size: auto;
     overflow: auto;
-    
+
     align-content: center;
     justify-content: center;
     align-items: center;
@@ -154,7 +154,7 @@ input{
 .topCorner
 {
     position:absolute;
-    
+
     float: right;
     right: 27%;
     top: 12%;
@@ -266,4 +266,36 @@ input{
     body video {
         display: none;
     }
+}
+
+.scrollbar-primary::-webkit-scrollbar
+{
+    width: 12px;
+}
+
+.scrollbar-primary::-webkit-scrollbar-thumb
+{
+    border-radius: 10000px;
+    -webkit-box-shadow: inset 0 0 3px rgba(255, 255, 255, 1);
+    background-color: #4285F4;
+}
+
+.scrollbar-primary
+{
+    scrollbar-color: #4285F4 #F5F5F5;
+}
+
+.fpBtn
+{
+    width:110px;
+}
+
+.fpBtn2
+{
+    width:140px;
+}
+
+.logoutBtn
+{
+    margin-right:50px;
 }
