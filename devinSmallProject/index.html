@@ -31,23 +31,24 @@
 
                     <div class="form-group">
                         <label class="form-label" for="email">Email</label>
-                        <input type="text" class="form-control inputText" id="email" placeholder="&#xf0e0  " >
+                        <input type="text" class="form-control inputText" id="email" placeholder="&#xf0e0;  " >
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="password">Password</label>
-                        <input type="password" class="form-control inputText" id="password" placeholder="&#xf084  ">
+                        <input type="password" class="form-control inputText" id="password" placeholder="&#xf084;  ">
                         <br>
-                        <button type="submit" class="btn btn-outline-danger btn-sm"
-                            formaction="forgotPassword.html">Forgot password?</button>
+
+                        <button type="submit" id="loginButton" class="non-opaque btn btn-primary"
+                            onclick="return doLogin();">Login</button>
+                        <button type="submit" class="non-opaque btn btn-primary" formaction="newUser.html">New
+                            User?</button>
+
                     </div>
-
+                    
                     <br>
-
-                    <button type="submit" id="loginButton" class="non-opaque btn btn-primary"
-                        onclick="return doLogin();">Login</button>
-                    <button type="submit" class="non-opaque btn btn-primary" formaction="newUser.html">New
-                        User?</button>
+                    <button type="submit" class="btn btn-outline-danger btn-sm"
+                        formaction="forgotPassword.html">Forgot password?</button>
 
                     <span id="loginResult"></span>
 
