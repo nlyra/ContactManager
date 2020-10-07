@@ -526,12 +526,21 @@ function forgotPassword()
 	userId = 0;
 
 	var email = document.getElementById("email").value;
-	var q1 = document.getElementById("question1").value;
-	var q2 = document.getElementById("question2").value;
+	var question1 = document.getElementById("question1").value;
+	var question2 = document.getElementById("question2").value;
+	var password = document.getElementById("password").value;
+	var hash = md5( password );
+	password = hash;
+
+	if (email == "" || question1 == "" || question2 == "")
+	{
+		document.getElementById("forgotResult").innerHTML = "Please enter all required fields.";
+		return;
+	}
 
 	document.getElementById("forgotResult").innerHTML = "";
 
-	var jsonPayload = '{"password" : "' + password + '", "email" : "' + email + '", "question1" : "' + question1 + '", "question2" : "' + question2 + '"}';
+	var jsonPayload = '{"email" : "' + email + '", "question1" : "' + question1 + '", "question2" : "' + question2 + '", "password" : "' + password + '"}';
 	var url = urlBase + '/ForgotPassword.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -548,14 +557,13 @@ function forgotPassword()
 		userQ2 = jsonObject.question2;
 		console.log(userEmail);
 
-		// I think this is wrong, didn't have time to test
-		if (userEmail !== email)
+		if (jsonObject.error == "No user found")
 		{
 			document.getElementById("forgotResult").innerHTML = "Email incorrect or does not exist.";
 			return;
 		}
 
-		if(userQ1 !== q1 || userQ2 !== q2)
+		if(jsonObject.error == "Question answers do not match")
 		{
 			document.getElementById("forgotResult").innerHTML = "Incorrect security question answers.";
 			return;

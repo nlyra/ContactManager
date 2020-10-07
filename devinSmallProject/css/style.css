@@ -61,7 +61,7 @@ header video {
 
 #squestion
 {
-  color: white;
+  color: black;
   font-size: 1.3vw;
   margin-top: 12%;
   margin-bottom: 5%;
@@ -179,8 +179,12 @@ input{
     padding-top: 3%;
 
     max-width: 25vw;
-    margin-top: 5%;
+    margin-top: 2%;
+}
 
+.cnt2
+{
+    margin-top: 5%;
 }
 
 .form-label
@@ -297,5 +301,10 @@ input{
 
 .logoutBtn
 {
-    margin-right:50px;
+    margin-left:225px;
+}
+
+.addBtn
+{
+    margin-right:225px;
 }
