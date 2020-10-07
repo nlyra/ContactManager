@@ -48,10 +48,14 @@
 
     <center>
 		<div class="containerManage scrollbar-primary">
+			<div class="text-right">
+				<button type="button" class="btn btn-danger fpBtn logoutBtn"
+					onclick="doLogout();">Logout</button>
+			</div>
+			<button type="button" class="btn btn-primary fpBtn" onclick="openCreateContactModal();">Create New</button>
 
-            <button type="button" class="btn btn-danger" onclick="doLogout();">Logout</button>
-			<button type="button" class="btn btn-primary" onclick="openCreateContactModal();">Create New</button>
 			<br><br>
+
             <input class="form-control mb-4 searchBar" id="searchText" type="text"
                 placeholder="&#xf002;  Search..." onkeyup="searchContact()">
 
@@ -179,6 +183,7 @@
 			</center>
 
         </div>
+
     </center>
 
 		<br><br><br><br>
