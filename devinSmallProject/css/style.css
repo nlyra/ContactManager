@@ -284,3 +284,18 @@ input{
 {
     scrollbar-color: #4285F4 #F5F5F5;
 }
+
+.fpBtn
+{
+    width:110px;
+}
+
+.fpBtn2
+{
+    width:140px;
+}
+
+.logoutBtn
+{
+    margin-right:50px;
+}
