@@ -39,18 +39,18 @@
                         <input type="password" class="form-control inputText" id="password" placeholder="&#xf084;  ">
                         <br>
 
-                        <button type="submit" id="loginButton" class="non-opaque btn btn-primary"
+                        <button type="button" id="loginButton" class="non-opaque btn btn-primary fpBtn"
                             onclick="return doLogin();">Login</button>
-                        <button type="submit" class="non-opaque btn btn-primary" formaction="newUser.html">New
-                            User?</button>
+                        <button type="button" class="non-opaque btn btn-primary fpBtn"
+                            onclick="window.location.href='newUser.html'">New User?</button>
 
                     </div>
-                    
-                    <br>
-                    <button type="submit" class="btn btn-outline-danger btn-sm"
-                        formaction="forgotPassword.html">Forgot password?</button>
 
-                    <span id="loginResult"></span>
+                    <br>
+                    <button type="button" class="btn btn-outline-danger btn-sm"
+                        onclick="window.location.href='forgotPassword.html'">Forgot password?</button>
+
+                    <p id="loginResult"></p>
 
                 </center>
             </form>
